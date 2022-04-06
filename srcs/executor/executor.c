@@ -44,17 +44,18 @@ void	executor(t_mini *mini, int cmd)
 
 	if (cmd >= 0)
 		ft_pipe(fd);
-	if (execute_builtin(mini))
+	mini->process_id = ft_fork();
+	if (builtin_parent(mini))
 	{
 		mini->process_id = -1;
 		return ;
 	}
-	mini->process_id = ft_fork();
 	if (mini->process_id == 0)
 	{
 		child_dup2_close(mini, fd, last_fd, cmd);
 		mini->exit_status = 0;
-		ft_execve(mini->cmd_args, mini->path);
+		if (!builtin_child(mini))
+			ft_execve(mini->cmd_args, mini->path);
 	}
 	parent_close(fd, &last_fd, cmd);
 }

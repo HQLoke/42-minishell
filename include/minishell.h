@@ -90,7 +90,9 @@ int		error_handling(const char *input);
 
 //* /srcs/executor
 void	child_dup2_close(t_mini *mini, int fd[2], int last_fd, int cmd);
-int		execute_builtin(t_mini *mini);
+int		builtin_parent(t_mini *mini);
+int		builtin_child(t_mini *mini);
+int		builtin(t_mini *mini);
 void	executor(t_mini *mini, int cmd);
 int		redirect_input(t_list *redirect);
 int		redirect_output(t_list *redirect);

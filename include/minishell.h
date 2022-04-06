@@ -135,7 +135,7 @@ int		argv_len(char* argv[]);
 void	cd_error(char *s1, char *s2, char *s3);
 int		builtin_cd(char **cmd, t_env *env);
 int		builtin_echo(char **cmd, t_env *env);
-void	builtin_env(char **cmd, t_env *env);
+int		builtin_env(char **cmd, t_env *env);
 int		builtin_exit(char **cmd, t_env *env);
 int		builtin_pwd(char **cmd, t_env *env);
 int		builtin_unset(char **cmd, t_env *env);

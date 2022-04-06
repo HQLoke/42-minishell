@@ -12,9 +12,10 @@
 
 #include "minishell.h"
 
-void	sigquit_handler(void)
+void	sigquit_handler(t_mini **mini)
 {
 	ft_putstr_fd("\033[2D\n", 1);
+	mini_deinit(mini);
 	exit (1);
 }
 
@@ -28,11 +29,11 @@ static void	signal_handler(int i)
 	{
 		if (pid == -1)
 		{
+			// rl_on_new_line();
+			// rl_redisplay();
+			ft_putstr_fd("\n", 2);
 			rl_on_new_line();
-			rl_redisplay();
-			ft_putstr_fd("  \n", 2);
-			rl_on_new_line();
-			// rl_replace_line("", 0);
+			rl_replace_line("", 0);
 			rl_redisplay();
 		}
 	}

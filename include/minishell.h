@@ -14,22 +14,22 @@
 # define MINISHELL_H
 
 # include <dirent.h>
+# include <errno.h>
 # include <fcntl.h>
 # include <limits.h>
+# include <stdio.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <signal.h>
 # include <stdarg.h>
 # include <stdbool.h>
-# include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <term.h>
 # include <unistd.h>
-# include <errno.h>
-# include "ANSI_color_codes.h"
+# include "ansi_color_codes.h"
 # include "get_next_line.h"
 # include "libft.h"
 
@@ -110,7 +110,7 @@ void	trim_quotes(char **cmd_args);
 
 //* /srcs/signal
 void	ft_signal(void);
-void	sigquit_handler(void);
+void	sigquit_handler(t_mini **mini);
 
 //* /srcs/standard
 void	ft_access(const char *filename, int mode);
@@ -118,6 +118,7 @@ void	ft_close(int fd);
 void	ft_dup2(int oldfd, int newfd);
 void	ft_execve(char **cmd_args, char **path);
 pid_t	ft_fork(void);
+void	ft_free(void *ptr);
 int		ft_open(const char *path, int flag, int mode);
 void	ft_pipe(int fd[2]);
 void	ft_unlink(const char *pathname);

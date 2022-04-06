@@ -21,9 +21,9 @@ int	main(void)
 	ft_signal();
     while (true)
     {
-        input = readline("(づ｡◕‿‿◕｡)づ>> ");
+        input = readline("мιηιѕнєℓℓ (づ｡◕‿‿◕｡)づ ");
 		if (input == NULL)
-			sigquit_handler();
+			sigquit_handler(&mini_head);
 		if (error_handling(input) == SUCCESS)
 		{
 			add_history(input);

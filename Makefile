@@ -5,11 +5,13 @@ CFLAGS    	  = #-g3 -fsanitize=address
 #-Wall -Wextra -Werror
 RM            = rm -f
 
-INC 	      = -Iinclude -Ignl -Ilibft
+INC 	      = -Iinclude -Ignl -Ilibft $(CPPFLAGS)
 GNL_DIR       = ./gnl
 LIBFT_DIR     = ./libft
 LIB           = -Lgnl -lgnl -Llibft -lft   \
-			 	-lreadline
+			 	-lreadline $(LDFLAGS)
+CPPFLAGS      = -I/usr/local/opt/readline/include
+LDFLAGS       = -L/usr/local/opt/readline/lib
 
 MAIN = srcs/main.c
 BUILTIN_DIR   	= srcs/builtin/
@@ -31,8 +33,8 @@ SRCS = $(addprefix $(BUILTIN_DIR), cd.c echo.c env.c exit.c export.c export_util
 	   $(addprefix $(PARSER_DIR), count_cmd_args.c expand_dollar.c extract_expansion.c 				\
 	   							  process_line.c set_cmd_args_array.c trim_quotes.c) 				\
 	   $(addprefix $(SIGNAL_DIR), signal.c)							  								\
-	   $(addprefix $(STANDARD_DIR), ft_access.c ft_close.c ft_dup2.c ft_execve.c 					\
-	   								ft_fork.c ft_open.c ft_pipe.c ft_unlink.c ft_waitpid.c) 		\
+	   $(addprefix $(STANDARD_DIR), ft_access.c ft_close.c ft_dup2.c ft_execve.c ft_fork.c   		\
+	   								ft_free.c ft_open.c ft_pipe.c ft_unlink.c ft_waitpid.c) 		\
 	   $(addprefix $(UTILS_DIR), ft_array_size.c ft_error.c ft_memdel.c ft_new_addback.c    		\
 	   							 ft_tokenizer.c ft_check_argv.c)
 OBJS = $(SRCS:.c=.o)

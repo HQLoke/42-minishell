@@ -6,7 +6,7 @@
 /*   By: hloke <hloke@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 21:25:47 by hloke             #+#    #+#             */
-/*   Updated: 2022/04/04 14:45:24 by hloke            ###   ########.fr       */
+/*   Updated: 2022/04/06 18:14:34 by hloke            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,9 @@ static void	parse_line(t_mini *mini, const char *content, int cmd)
 	executor(mini, cmd);
 	ft_lstclear(&mini->redirect, free);
 	ft_memdel((void **)mini->cmd_args);
+	mini->cmd_args = NULL;
 	ft_memdel((void **)mini->path);
+	mini->path = NULL;
 }
 
 //* N = number of processes

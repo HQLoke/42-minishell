@@ -6,7 +6,7 @@
 /*   By: hloke <hloke@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 14:30:45 by hloke             #+#    #+#             */
-/*   Updated: 2022/04/04 13:28:12 by hloke            ###   ########.fr       */
+/*   Updated: 2022/04/06 19:23:29 by hloke            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static char	*env_value(t_mini *mini, char *str, int expand, int i)
 	}
 	tmp = ft_substr(str, i + 1, len);
 	if (ft_strncmp(tmp, "?", 2) == 0)
-		ret = ft_itoa(mini->exit_status);
+		ret = ft_itoa(mini->last_exit_status);
 	else
 		ret = env_get_value(mini->env_head, tmp);
 	free(tmp);

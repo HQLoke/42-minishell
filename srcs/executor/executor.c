@@ -53,7 +53,7 @@ void	executor(t_mini *mini, int cmd)
 	if (mini->process_id == 0)
 	{
 		child_dup2_close(mini, fd, last_fd, cmd);
-		mini->exit_status = 0;
+		mini->last_exit_status = 0;
 		if (!builtin_child(mini))
 			ft_execve(mini->cmd_args, mini->path);
 	}

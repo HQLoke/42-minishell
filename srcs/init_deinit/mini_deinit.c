@@ -6,7 +6,7 @@
 /*   By: hloke <hloke@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 14:06:32 by hloke             #+#    #+#             */
-/*   Updated: 2022/04/06 18:03:44 by hloke            ###   ########.fr       */
+/*   Updated: 2022/04/06 19:17:38 by hloke            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void	goodbye_msg(void)
 //* Deinitialize at EXIT_FAILURE or at the end of program
 void	mini_deinit(t_mini **mini)
 {
-	goodbye_msg();
+	// goodbye_msg();
 	env_deinit(&(*mini)->env_head);
 	ft_free ((*mini)->pwd);
 	ft_lstclear(&(*mini)->pipeline_head, free);

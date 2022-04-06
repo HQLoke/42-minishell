@@ -69,7 +69,7 @@ typedef struct s_mini
 	pid_t	process_id;
 	int		in_fd;
 	int		out_fd;
-	int		exit_status;
+	int		last_exit_status;
 	int 	write;
 }	t_mini;
 

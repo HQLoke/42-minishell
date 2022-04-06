@@ -15,14 +15,14 @@
 /* Haven't solved the problem of output redirection
 Might have to use ft_putstr_fd instead of printf */
 
-void		builtin_env(char **cmd, t_env	*env)
+int	builtin_env(char **cmd, t_env *env)
 {
-	t_env	*cpy;
-
-	cpy = env;
-	while (cpy)
+	(void)cmd;
+	while (env)
 	{
-		printf("%s=%s\n", cpy->env_var, cpy->value);
-		cpy = cpy->next;
+		if (env->value != NULL)
+			printf("%s=%s\n", env->env_var, env->value);
+		env = env->next;
 	}
+	return (0);
 }

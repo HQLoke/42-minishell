@@ -12,12 +12,12 @@
 
 #include "minishell.h"
 
-int	main(void)
+int	main(int argc, char **argv, char **envp)
 {
 	t_mini	*mini_head;
 	char	*input;
 
-	mini_init(&mini_head);
+	mini_init(&mini_head, envp);
 	ft_signal();
     while (true)
     {

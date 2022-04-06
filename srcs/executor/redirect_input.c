@@ -18,22 +18,22 @@ static int	input_heredoc(const char *limit)
 {
 	char	*tmp_filename;
 	char	*line;
-	char	*tmp;
 	int		tmp_fd;
 
 	tmp_filename = ".heredoc_tmp";
 	if (access(tmp_filename, F_OK) == 0)
 		ft_unlink(tmp_filename);
 	tmp_fd = ft_open(tmp_filename, O_CREAT | O_WRONLY | O_TRUNC, 0666);
-	while ((get_next_line(0, &line) > 0) || (ft_strlen(line) > 0))
+	line = readline("heredoc> ");
+	while (1)
 	{
 		if (ft_strncmp(line, limit, ft_strlen(limit) + 1) == 0)
 			break ;
-		tmp = ft_strjoin(line, "\n");
-		ft_putstr_fd(tmp, tmp_fd);
-		free (line);
-		free (tmp);
+		ft_putstr_fd(line, tmp_fd);
+		ft_putstr_fd("\n", tmp_fd);
+		line = readline("heredoc> ");
 	}
+	free (line);
 	ft_close(tmp_fd);
 	return (ft_open(tmp_filename, O_RDONLY, 0));
 }

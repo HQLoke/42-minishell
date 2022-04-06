@@ -33,8 +33,6 @@
 # include "get_next_line.h"
 # include "libft.h"
 
-extern char	**environ;
-
 //* Macro definitions
 //* LESSLESS   <<
 //* LESS       <
@@ -52,7 +50,6 @@ typedef struct s_env
 	char				*env_var;
 	char				*value;
 	struct s_env		*next;
-	struct s_env		*prev;
 }	t_env;
 
 typedef struct s_mini
@@ -76,10 +73,9 @@ typedef struct s_mini
 //* /srcs/env
 void	env_deinit(t_env **head);
 char	*env_get_value(t_env *head, char *env_var);
-void	env_init(t_env **head);
+void	env_init(t_env **head, char **envp);
 void	env_set_value(t_env **head, char *env_var, char *new_value);
 void	env_new_value(t_env **head, char *env_var, char *value);
-int 	update_env_value(t_env *env, char *tmp, char *env_var);
 
 //* /srcs/error
 int		check_ends(const char *str, int *exit);
@@ -100,7 +96,7 @@ void	wait_exit_status(t_mini *mini);
 
 //* /srcs/init_deinit
 void	mini_deinit(t_mini **mini);
-void	mini_init(t_mini **mini);
+void	mini_init(t_mini **mini, char **envp);
 
 //* /srcs/parser
 int		count_cmd_args(t_list *head);

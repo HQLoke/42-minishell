@@ -28,22 +28,3 @@ char	*env_get_value(t_env *head, char *env_var)
 	}
 	return (ft_calloc(1, sizeof(char)));
 }
-
-int	update_env_value(t_env *env, char *tmp, char *env_var)
-{
-	int	i;
-
-	i = 0;
-	while (env)
-	{
-		if (env_get_value(env, tmp))
-		{
-			free(env->value);
-			env->value = ft_strdup(env_var);
-			i = 1;
-			break ;
-		}
-		env = env->next;
-	}
-	return (i);
-}

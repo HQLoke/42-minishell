@@ -1,0 +1,3 @@
+# Don't include all .dSYM files
+minishell.dSYM/
+test/TEST.dSYM

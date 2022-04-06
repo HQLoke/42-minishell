@@ -1,0 +1,43 @@
+[UPDATED 21 March 2022]
+Core process:
+1: Error cases to check:
+		Unclosed single and double quotes
+		Backslash special characters
+		Single semicolon
+		Redirection errors (no infile, no outfile)
+		Empty pipeline, start or end with pipeline
+2: Split input based on '|' into pipeline string
+3: Split each pipeline string based on '[empty]' into pipeline linked list
+4: Trim single and double quotes
+5: Expand environment variables
+
+   Notes:
+   If I remove single/double quotes first, I wouldn't know env var which to expand.
+   If I expand first, I might remove single/double quotes in the content of env var.
+   The solution:
+   First loop, while removing quotes, if encountered a $, set type to 0 (not expand). 
+   Or type to 1 (expand) & get the content of env var. Set everything is a linked list.
+   Second loop, for each $, use the linked list to check and edit the string.
+6: Separate command plus arguments from input/output redirections
+
+   Notes:
+   There's a difference between bash and zsh. Use bash.
+   Bash uses the last input or output redirection. Zsh processes one by one.
+   For example: command < infile1 << infile2 < infile3 > outfile1 >> outfile2 > outfile3
+   Bash takes input from infile3 only. Ignore read end of previous pipe and intermediate inputs.
+   Sends output to outfile3 only. Ignore write end of next pipe. New file for intermediate outputs.
+7: Execute the command.
+   Builtin vs Not Builtin
+   PATH vs Relative vs Absolute
+
+Non-core process:
+1: Builtin
+2: Environment
+3: History
+4: Signal
+
+Memory management:
+1: At EXIT_FAILURE, free everything.
+2: After successful execution, free pipeline_head at process_line
+							   free redirect, cmd_args, path at parse_line
+							   free env_head, pwd at main

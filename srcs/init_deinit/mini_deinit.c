@@ -6,7 +6,7 @@
 /*   By: hloke <hloke@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 14:06:32 by hloke             #+#    #+#             */
-/*   Updated: 2022/04/06 15:59:29 by hloke            ###   ########.fr       */
+/*   Updated: 2022/04/06 16:27:17 by hloke            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,11 @@ static void	goodbye_msg(void)
 void	mini_deinit(t_mini **mini)
 {
 	env_deinit(&(*mini)->env_head);
+	free ((*mini)->pwd);
+	ft_lstclear(&(*mini)->pipeline_head, free);
+	ft_lstclear(&(*mini)->redirect, free);
+	ft_memdel((void **)(*mini)->cmd_args);
+	ft_memdel((void **)(*mini)->path);
 	free (*mini);
 	*mini = NULL;
 }

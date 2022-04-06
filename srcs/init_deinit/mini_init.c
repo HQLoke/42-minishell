@@ -6,7 +6,7 @@
 /*   By: hloke <hloke@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 14:06:07 by hloke             #+#    #+#             */
-/*   Updated: 2022/04/06 15:57:02 by hloke            ###   ########.fr       */
+/*   Updated: 2022/04/06 16:16:09 by hloke            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,8 @@ void	mini_init(t_mini **mini)
 	*mini = ft_calloc(1, sizeof(t_mini));
 	env_init(&(*mini)->env_head);
 	(*mini)->pwd = NULL;
+	(*mini)->pipeline_head = NULL;
+	(*mini)->redirect = NULL;
+	(*mini)->cmd_args = NULL;
+	(*mini)->path = NULL;
 }

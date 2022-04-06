@@ -21,7 +21,7 @@ int	main(void)
 	ft_signal();
     while (true)
     {
-        input = readline("minishell>>");
+        input = readline("(づ｡◕‿‿◕｡)づ>> ");
 		if (input == NULL)
 			sigquit_handler();
 		if (error_handling(input) == SUCCESS)

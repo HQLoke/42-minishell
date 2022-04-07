@@ -32,7 +32,7 @@
 # include "ansi_color_codes.h"
 # include "libft.h"
 
-enum e_token{heredoc, input, append, trunc, piping, literal};
+enum e_token{heredoc = 10, input, append, trunc, piping, literal};
 enum e_CONSTANTS{success = 99,	failure = 100};
 typedef struct s_env
 {
@@ -57,6 +57,12 @@ typedef struct s_mini
 	int		out_fd;
 	int		last_exit_status;
 }	t_mini;
+
+// typedef struct s_mini
+// {
+// 	t_env	*env_head;
+// 	t_list	*token_head;
+// }	t_mini;
 
 //* /srcs/env
 void	env_deinit(t_env **head);

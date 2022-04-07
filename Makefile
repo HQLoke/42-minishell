@@ -30,13 +30,14 @@ SRCS = $(addprefix $(BUILTIN_DIR), cd.c echo.c env.c exit.c export.c export_util
 	   								redirect_input.c redirect_output.c wait_exit_status.c)			\
 	   $(addprefix $(INIT_DEINIT_DIR), mini_deinit.c mini_init.c)									\
 	   $(addprefix $(LEXER_DIR), assign_token.c check_token.c mini_lexer.c)							\
-	   $(addprefix $(PARSER_DIR), count_cmd_args.c expand_dollar.c expand_token.c extract_expansion.c 				\
+	   $(addprefix $(PARSER_DIR), count_cmd_args.c expand_dollar.c extract_expansion.c 				\
 	   							  process_line.c set_cmd_args_array.c trim_quotes.c) 				\
 	   $(addprefix $(SIGNAL_DIR), signal.c)							  								\
-	   $(addprefix $(STANDARD_DIR), ft_access.c ft_close.c ft_dup2.c ft_execve.c ft_fork.c   		\
-	   								ft_free.c ft_open.c ft_pipe.c ft_unlink.c ft_waitpid.c) 		\
-	   $(addprefix $(UTILS_DIR), ft_array_size.c ft_error.c ft_error_exit.c ft_memdel.c ft_new_addback.c    \
-	   							 ft_tokenizer.c ft_check_argv.c)			                      
+	   $(addprefix $(STANDARD_DIR), ft_access.c ft_close.c ft_dup2.c ft_execve.c ft_fork.c   			  \
+	   								ft_free.c ft_open.c ft_pipe.c ft_unlink.c ft_waitpid.c) 			  \
+	   $(addprefix $(UTILS_DIR), ft_array_size.c ft_error.c ft_error_exit.c ft_memdel.c ft_new_addback.c  \
+	   							 ft_tokenizer.c ft_check_argv.c)                                    \
+	   srcs/parser2/expand_token.c srcs/parser2/mini_parser.c		                      
 OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)

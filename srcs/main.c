@@ -22,16 +22,23 @@ int	main(int argc, char **argv, char **envp)
     while (true)
     {
         input = readline("мιηιѕнєℓℓ (づ｡◕‿‿◕｡)づ ");
-		if (input == NULL)
-			sigquit_handler(&mini_head);
-		if (error_handling(input) == SUCCESS)
-		{
-			add_history(input);
-			process_line(mini_head, input);
-		}
+
+
+		t_list	*head;
+		mini_lexer(&head, input);
+		expand_token(mini_head, &head);
+		
+
+		// if (input == NULL)
+		// 	sigquit_handler(&mini_head);
+		// if (error_handling(input) == success)
+		// {
+		// 	add_history(input);
+		// 	process_line(mini_head, input);
+		// }
 		free(input);
     }
 	mini_deinit(&mini_head);
-	// system("leaks minishell");
+	system("leaks minishell");
 	return (0);
 }

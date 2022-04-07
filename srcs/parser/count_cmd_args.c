@@ -30,13 +30,13 @@ int	count_cmd_args(t_list *head)
 	while (tmp)
 	{
 		if (ft_strncmp(tmp->content, "<<", 3) == 0)
-			assign_redirection(tmp, LESSLESS);
+			assign_redirection(tmp, heredoc);
 		else if (ft_strncmp(tmp->content, "<", 2) == 0)
-			assign_redirection(tmp, LESS);
+			assign_redirection(tmp, input);
 		else if (ft_strncmp(tmp->content, ">>", 3) == 0)
-			assign_redirection(tmp, GREATGREAT);
+			assign_redirection(tmp, append);
 		else if (ft_strncmp(tmp->content, ">", 2) == 0)
-			assign_redirection(tmp, GREAT);
+			assign_redirection(tmp, trunc);
 		else
 			count += 1;
 		tmp = tmp->next;

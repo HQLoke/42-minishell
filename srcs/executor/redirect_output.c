@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-//* For tmp->type == GREAT, if not the last output file
+//* For tmp->type == trunc, if not the last output file
 //* use O_TRUNC to create a new file for each output
 //* Returns file descriptor of the last output file
 //* Returns -1 if no output redirection is found
@@ -25,14 +25,14 @@ int	redirect_output(t_list *redirect)
 	output_fd = -1;
 	while (tmp)
 	{
-		if (tmp->type == GREATGREAT || tmp->type == GREAT)
+		if (tmp->type == append || tmp->type == trunc)
 		{
 			if (output_fd != -1)
 				ft_close(output_fd);
-			if (tmp->type == GREATGREAT)
+			if (tmp->type == append)
 				output_fd = ft_open(tmp->content, O_CREAT | O_WRONLY
 						| O_APPEND, 0666);
-			else if (tmp->type == GREAT)
+			else if (tmp->type == trunc)
 				output_fd = ft_open(tmp->content, O_CREAT | O_WRONLY
 						| O_TRUNC, 0666);
 		}

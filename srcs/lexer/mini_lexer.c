@@ -6,7 +6,7 @@
 /*   By: hloke <hloke@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 09:47:48 by hloke             #+#    #+#             */
-/*   Updated: 2022/04/07 14:48:34 by hloke            ###   ########.fr       */
+/*   Updated: 2022/04/07 18:41:55 by hloke            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,4 +88,6 @@ void	mini_lexer(t_list **token_head, char *input)
 		else if (*input == ' ')
 			input += 1;
 	}
+	assign_token(token_head);
+	check_token(token_head);
 }

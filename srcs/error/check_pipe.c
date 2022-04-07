@@ -13,7 +13,7 @@
 #include "minishell.h"
 
 //* Check if the pipeline is empty
-//* For example: echo "hello world" | | cat -e will set exit to FAILURE
+//* For example: echo "hello world" | | cat -e will set exit to failure
 int	check_pipe(const char *str, int *exit)
 {
 	int	i;

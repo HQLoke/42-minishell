@@ -16,9 +16,9 @@ int	error_handling(const char *input)
 {
 	int	exit;
 
-	exit = SUCCESS;
+	exit = success;
 	check_ends(input, &exit);
-	while (*input && exit == SUCCESS)
+	while (*input && exit == success)
 	{
 		if (*input == '\'' || *input == '\"')
 			input += check_quotes(input, &exit);

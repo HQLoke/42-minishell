@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-//* LESSLESS <<
+//* heredoc <<
 //* limit is the word that is used to stop heredoc
 static int	input_heredoc(const char *limit)
 {
@@ -51,13 +51,13 @@ int	redirect_input(t_list *redirect)
 	input_fd = -1;
 	while (tmp)
 	{
-		if (tmp->type == LESSLESS || tmp->type == LESS)
+		if (tmp->type == heredoc || tmp->type == input)
 		{
 			if (input_fd != -1)
 				ft_close(input_fd);
-			if (tmp->type == LESSLESS)
+			if (tmp->type == heredoc)
 				input_fd = input_heredoc(tmp->content);
-			else if (tmp->type == LESS)
+			else if (tmp->type == input)
 				input_fd = ft_open(tmp->content, O_RDONLY, 0);
 		}
 		tmp = tmp->next;

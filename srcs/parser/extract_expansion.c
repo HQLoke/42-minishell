@@ -6,7 +6,7 @@
 /*   By: hloke <hloke@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/29 14:30:45 by hloke             #+#    #+#             */
-/*   Updated: 2022/04/06 19:23:29 by hloke            ###   ########.fr       */
+/*   Updated: 2022/04/06 20:26:05 by hloke            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,11 @@ static char	*env_value(t_mini *mini, char *str, int expand, int i)
 	char	*ret;
 
 	len = 0;
+	if (str[i + 1] == '?')
+	{
+		ft_memmove(str + (i + 1), str + (i + 2), ft_strlen(str) - i - 1);
+		return (ft_itoa(mini->last_exit_status));
+	}
 	while (str[(i + 1) + len])
 	{
 		if (str[(i + 1) + len] == '$' || str[(i + 1) + len] == ' '
@@ -32,10 +37,7 @@ static char	*env_value(t_mini *mini, char *str, int expand, int i)
 		len += 1;
 	}
 	tmp = ft_substr(str, i + 1, len);
-	if (ft_strncmp(tmp, "?", 2) == 0)
-		ret = ft_itoa(mini->last_exit_status);
-	else
-		ret = env_get_value(mini->env_head, tmp);
+	ret = env_get_value(mini->env_head, tmp);
 	free(tmp);
 	if (expand == 1)
 		ft_memmove(str + (i + 1), str + (i + 1) + len,

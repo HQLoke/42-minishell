@@ -30,26 +30,15 @@
 # include <term.h>
 # include <unistd.h>
 # include "ansi_color_codes.h"
-# include "get_next_line.h"
 # include "libft.h"
 
-//* Macro definitions
-//* LESSLESS   <<
-//* LESS       <
-//* GREATGREAT >>
-//* GREAT      >
-# define LESSLESS   1
-# define LESS       2
-# define GREATGREAT 3
-# define GREAT      4
-# define SUCCESS    99
-# define FAILURE    100
-
+enum e_token{heredoc, input, append, trunc, piping, literal};
+enum e_CONSTANTS{success = 99,	failure = 100};
 typedef struct s_env
 {
-	char				*env_var;
-	char				*value;
-	struct s_env		*next;
+	char			*env_var;
+	char			*value;
+	struct s_env	*next;
 }	t_env;
 
 typedef struct s_mini
@@ -67,7 +56,6 @@ typedef struct s_mini
 	int		in_fd;
 	int		out_fd;
 	int		last_exit_status;
-	int 	write;
 }	t_mini;
 
 //* /srcs/env
@@ -98,9 +86,15 @@ void	wait_exit_status(t_mini *mini);
 void	mini_deinit(t_mini **mini);
 void	mini_init(t_mini **mini, char **envp);
 
+//* /srcs/lexer
+void	assign_token(t_list **token_head);
+void	check_token(t_list **token_head);
+void	mini_lexer(t_list **token_head, char *input);
+
 //* /srcs/parser
 int		count_cmd_args(t_list *head);
 void	expand_dollar(char **cmd_args, t_list *expansion);
+void	expand_token(t_mini *mini, t_list **token_head);
 void	extract_expansion(t_mini *mini, char **cmd_args, t_list **expansion);
 void	process_line(t_mini *mini, const char *line);
 void	set_cmd_args_array(t_mini *mini);
@@ -125,10 +119,11 @@ pid_t	ft_waitpid(pid_t pid, int *wstatus, int options);
 //* /srcs/utils
 size_t	ft_array_size(char **array);
 void	ft_error(const char *str, int fd, int *exit);
+void	ft_error_exit(char *error_msg);
 void	ft_memdel(void **ptr);
 void	ft_new_addback(t_list **head, char *content, int type);
 void	ft_tokenizer(t_list **head, const char *input, char delim);
-int		argv_len(char* argv[]);
+int		argv_len(char *argv[]);
 
 //* /srcs/builtin
 void	cd_error(char *s1, char *s2, char *s3);
@@ -138,7 +133,7 @@ int		builtin_env(char **cmd, t_env *env);
 int		builtin_exit(char **cmd, t_env *env);
 int		builtin_pwd(char **cmd, t_env *env);
 int		builtin_unset(char **cmd, t_env *env);
-int 	builtin_export(char **cmd, t_env *env);
+int		builtin_export(char **cmd, t_env *env);
 int		get_arglen(char *s1, char *s2);
 char	*add_front(int fd, char *value, char s);
 char	*add_end(int fd, char *value, char c);

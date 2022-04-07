@@ -17,5 +17,5 @@
 void	ft_error(const char *str, int fd, int *exit)
 {
 	ft_putstr_fd((char *)str, fd);
-	*exit = FAILURE;
+	*exit = failure;
 }

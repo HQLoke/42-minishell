@@ -5,10 +5,8 @@
 #include <stdio.h>
 #include <stdarg.h>
 
-// extern char **environ;
-
-int main(int argv, char **argc, char **envp)
+int main(int argc, char **argv, char **envp)
 {	
-	goodbye_msg();
+
 	return (0);
 }

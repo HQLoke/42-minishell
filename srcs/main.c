@@ -14,20 +14,21 @@
 
 int	main(int argc, char **argv, char **envp)
 {
-	t_mini	*mini_head;
+	t_mini	*mini;
 	char	*input;
 
-	mini_init(&mini_head, envp);
+	environ_init(envp);
 	ft_signal();
     while (true)
     {
         input = readline("мιηιѕнєℓℓ (づ｡◕‿‿◕｡)づ ");
-
+		if (input == NULL)
+			sigquit_handler(&mini);
 
 		t_list	*token_head;
 		token_head = NULL;
-		mini_lexer(&token_head, input);
-		expand_token(mini_head, &token_head);
+		mini_lexer(input, &token_head);
+		mini_parser(token_head);
 		
 		while (token_head)
 		{
@@ -35,17 +36,16 @@ int	main(int argc, char **argv, char **envp)
 			token_head = token_head->next;
 		}
 
-
 		// if (input == NULL)
-		// 	sigquit_handler(&mini_head);
+		// 	sigquit_handler(&mini);
 		// if (error_handling(input) == success)
 		// {
 		// 	add_history(input);
-		// 	process_line(mini_head, input);
+		// 	process_line(mini, input);
 		// }
 		free(input);
     }
-	mini_deinit(&mini_head);
+
 	system("leaks minishell");
 	return (0);
 }

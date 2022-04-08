@@ -6,7 +6,7 @@
 /*   By: hloke <hloke@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 09:47:48 by hloke             #+#    #+#             */
-/*   Updated: 2022/04/07 21:52:16 by hloke            ###   ########.fr       */
+/*   Updated: 2022/04/08 14:07:00 by hloke            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static int	token_redirect(t_list **token_head, char *input)
 //* Biggest mistake was that I used space as a delimiter
 //* Split any string into a list of tokens
 //* This will not handle a lot of cases, mainly just scan for redirections
-void	mini_lexer(t_list **token_head, char *input)
+void	mini_lexer(char *input, t_list **token_head)
 {
 	while (*input)
 	{
@@ -90,4 +90,5 @@ void	mini_lexer(t_list **token_head, char *input)
 	}
 	assign_token(token_head);
 	check_token(token_head);
+	set_token(token_head);
 }

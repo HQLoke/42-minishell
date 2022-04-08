@@ -6,13 +6,14 @@
 /*   By: hloke <hloke@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 15:26:51 by hloke             #+#    #+#             */
-/*   Updated: 2022/04/07 15:43:38 by hloke            ###   ########.fr       */
+/*   Updated: 2022/04/08 14:30:12 by hloke            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 //* Assign token type to each node in the token_head linked list
+//* This is the very first step before any error handling
 void	assign_token(t_list **token_head)
 {
 	t_list	*tmp;
@@ -31,7 +32,7 @@ void	assign_token(t_list **token_head)
 		else if (ft_strncmp(tmp->content, "|", 2) == 0)
 			tmp->type = piping;
 		else
-			tmp->type = literal;
+			tmp->type = argument;
 		tmp = tmp->next;
 	}
 }

@@ -32,7 +32,15 @@
 # include "ansi_color_codes.h"
 # include "libft.h"
 
-enum e_token{heredoc = 10, input, append, trunc, piping, literal};
+typedef struct s_environ
+{
+	int		num_var;
+	char	**env_var;
+}	t_environ;
+
+t_environ	*g_environ;
+
+enum e_token{heredoc = 1, input, append, trunc, piping, command, argument};
 enum e_CONSTANTS{success = 99,	failure = 100};
 typedef struct s_env
 {
@@ -43,14 +51,14 @@ typedef struct s_env
 
 typedef struct s_mini
 {
-	t_env	*env_head;
+	t_env	*env_head; //Delete later
 	char	*pwd;
 
-	t_list	*pipeline_head;
+	t_list	*pipeline_head; //Delete later
 
-	t_list	*redirect;
-	char	**cmd_args;
-	char	**path;
+	t_list	*redirect;  //Free in child if exit
+	char	**cmd_args; //Free in child if exit
+	char	**path;     //Free in child if exit
 
 	pid_t	process_id;
 	int		in_fd;
@@ -58,52 +66,36 @@ typedef struct s_mini
 	int		last_exit_status;
 }	t_mini;
 
-// typedef struct s_mini
-// {
-// 	t_env	*env_head;
-// 	t_list	*token_head;
-// }	t_mini;
+//! ************************NEW REVAMP************************
+//* /srcs/lexer
+void	assign_token(t_list **token_head);
+void	check_token(t_list **token_head);
+void	set_token(t_list **token_head);
+void	mini_lexer(char *input, t_list **token_head);
+
+void	expand_token(t_list *node);
+void	mini_parser(t_list *token_head);
+//! ************************NEW REVAMP************************
 
 //* /srcs/env
-void	env_deinit(t_env **head);
-char	*env_get_value(t_env *head, char *env_var);
-void	env_init(t_env **head, char **envp);
-void	env_set_value(t_env **head, char *env_var, char *new_value);
-void	env_new_value(t_env **head, char *env_var, char *value);
-
-//* /srcs/error
-int		check_ends(const char *str, int *exit);
-int		check_pipe(const char *str, int *exit);
-int		check_quotes(const char *str, int *exit);
-int		check_redirection(const char *str, int *exit);
-int		error_handling(const char *input);
+void	environ_deinit(t_env **head);
+void	environ_init(char **envp);
+int		ft_delenv(char *env_key);
+char	*ft_getenv(char *env_key);
+int		ft_putenv(char *env_var);
 
 //* /srcs/executor
 void	child_dup2_close(t_mini *mini, int fd[2], int last_fd, int cmd);
 int		builtin_parent(t_mini *mini);
 int		builtin_child(t_mini *mini);
 int		builtin(t_mini *mini);
-void	executor(t_mini *mini, int cmd);
+void	mini_executor(t_mini *mini, int cmd);
 int		redirect_input(t_list *redirect);
 int		redirect_output(t_list *redirect);
 void	wait_exit_status(t_mini *mini);
 
-//* /srcs/init_deinit
-void	mini_deinit(t_mini **mini);
-void	mini_init(t_mini **mini, char **envp);
-
-//* /srcs/lexer
-void	assign_token(t_list **token_head);
-void	check_token(t_list **token_head);
-void	mini_lexer(t_list **token_head, char *input);
-
 //* /srcs/parser
-int		count_cmd_args(t_list *head);
-void	expand_dollar(char **cmd_args, t_list *expansion);
-void	expand_token(t_mini *mini, t_list **token_head);
-void	extract_expansion(t_mini *mini, char **cmd_args, t_list **expansion);
 void	process_line(t_mini *mini, const char *line);
-void	set_cmd_args_array(t_mini *mini);
 void	trim_quotes(char **cmd_args);
 
 //* /srcs/signal
@@ -123,12 +115,13 @@ void	ft_unlink(const char *pathname);
 pid_t	ft_waitpid(pid_t pid, int *wstatus, int options);
 
 //* /srcs/utils
+char	**ft_array_dup(char **src_array, int num_var);
 size_t	ft_array_size(char **array);
 void	ft_error(const char *str, int fd, int *exit);
 void	ft_error_exit(char *error_msg);
 void	ft_memdel(void **ptr);
 void	ft_new_addback(t_list **head, char *content, int type);
-void	ft_tokenizer(t_list **head, const char *input, char delim);
+void	ft_split_custom(t_list **head, const char *input, char delim);
 int		argv_len(char *argv[]);
 
 //* /srcs/builtin

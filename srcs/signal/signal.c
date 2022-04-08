@@ -15,7 +15,6 @@
 void	sigquit_handler(t_mini **mini)
 {
 	ft_putstr_fd("\033[2D\n", 1);
-	mini_deinit(mini);
 	exit (1);
 }
 

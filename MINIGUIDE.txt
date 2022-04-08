@@ -18,6 +18,7 @@ Core process:
    First loop, while removing quotes, if encountered a $, set type to 0 (not expand). 
    Or type to 1 (expand) & get the content of env var. Set everything is a linked list.
    Second loop, for each $, use the linked list to check and edit the string.
+   (Updated 8 April: This is WRONG!)
 6: Separate command plus arguments from input/output redirections
 
    Notes:
@@ -41,3 +42,21 @@ Memory management:
 2: After successful execution, free pipeline_head at process_line
 							   free redirect, cmd_args, path at parse_line
 							   free env_head, pwd at main
+
+6 April 2022:
+Follow this process flow: lexer > parser > executor
+1: Know the limitations of each data structure and decide when to use suitable one.
+   For example:
+   If I use linked list, it is easier to add environment variables. But I have to
+   convert into array everything I use execve.
+   If I use array, it is more difficult to add environment variables due to realloc.
+   But I don't have to convert into array everytime.
+2: Should not make my code return malloced strings no matter success or failure. 
+   Makes my code less reusable and more memory to free.
+   For example in the getenv function, return a pointer to the value instead if
+   successful, else return NULL.
+3: Instead of storing split information like env_var and value, I can use functions
+   like put/set/del to retrieve information. Then I don't need to combine env_var
+   and value again everytime I run execve.
+4: It's not a memory leak if it's still reachable. Don't have to religiously free
+   everything.

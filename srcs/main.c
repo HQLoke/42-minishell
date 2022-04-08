@@ -24,10 +24,17 @@ int	main(int argc, char **argv, char **envp)
         input = readline("мιηιѕнєℓℓ (づ｡◕‿‿◕｡)づ ");
 
 
-		t_list	*head;
-		mini_lexer(&head, input);
-		expand_token(mini_head, &head);
+		t_list	*token_head;
+		token_head = NULL;
+		mini_lexer(&token_head, input);
+		expand_token(mini_head, &token_head);
 		
+		while (token_head)
+		{
+			printf("Type is %i, %s\n", token_head->type, token_head->content);
+			token_head = token_head->next;
+		}
+
 
 		// if (input == NULL)
 		// 	sigquit_handler(&mini_head);

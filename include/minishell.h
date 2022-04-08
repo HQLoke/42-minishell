@@ -58,6 +58,12 @@ typedef struct s_mini
 	int		last_exit_status;
 }	t_mini;
 
+// typedef struct s_mini
+// {
+// 	t_env	*env_head;
+// 	t_list	*token_head;
+// }	t_mini;
+
 //* /srcs/env
 void	env_deinit(t_env **head);
 char	*env_get_value(t_env *head, char *env_var);

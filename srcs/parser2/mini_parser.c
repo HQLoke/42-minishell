@@ -6,13 +6,13 @@
 /*   By: hloke <hloke@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 17:52:14 by hloke             #+#    #+#             */
-/*   Updated: 2022/04/07 18:39:14 by hloke            ###   ########.fr       */
+/*   Updated: 2022/04/07 21:43:21 by hloke            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	mini_parser(t_list **token_head)
+void	mini_parser(t_env *env_head, t_list **token_head)
 {
 
 }

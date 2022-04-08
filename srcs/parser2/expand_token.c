@@ -6,7 +6,7 @@
 /*   By: hloke <hloke@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 17:54:16 by hloke             #+#    #+#             */
-/*   Updated: 2022/04/08 09:30:25 by hloke            ###   ########.fr       */
+/*   Updated: 2022/04/08 09:31:21 by hloke            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,9 @@ static char	*env_value1(t_mini *mini, char *str, int expand, int i)
 	}
 	while (str[(i + 1) + len])
 	{
-		if (ft_strchr("$ \0\'\"", str[(i + 1) + len]) != NULL)
+		if (str[(i + 1) + len] == '$' || str[(i + 1) + len] == ' '
+			|| str[(i + 1) + len] == '\0' || str[(i + 1) + len] == '\''
+			|| str[(i + 1) + len] == '\"')
 			break ;
 		len += 1;
 	}
@@ -129,13 +131,6 @@ void	expand_token(t_mini *mini, t_list **token_head)
 	extract_expansion1(mini, token_head, &expansion);
 	expand_dollar1(token_head, expansion);
 
-	t_list *token;
-	token = *token_head;
-	while (token)
-	{
-		printf("%s\n", token->content);
-		token = token->next;
-	}
-	ft_lstclear(token_head, free);
+
 	ft_lstclear(&expansion, free);
 }

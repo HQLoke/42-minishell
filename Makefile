@@ -26,7 +26,7 @@ SRCS = $(addprefix $(BUILTIN_DIR), cd.c echo.c env.c exit.c export.c export_util
 	   $(addprefix $(EXECUTOR_DIR), child_dup2_close.c execute_builtin.c mini_executor.c 		    \
 	   								redirect_input.c redirect_output.c wait_exit_status.c)			\
 	   $(addprefix $(LEXER_DIR), assign_token.c check_token.c set_token.c mini_lexer.c)				\
-	   $(addprefix $(PARSER_DIR), expand_cmd.c expand_token.c mini_parser.c trim_token.c) 			\
+	   $(addprefix $(PARSER_DIR), expand_cmd.c expand_token.c get_expansion.c mini_parser.c trim_token.c) 			\
 	   $(addprefix $(SIGNAL_DIR), signal.c)							  								\
 	   $(addprefix $(STANDARD_DIR), ft_access.c ft_close.c ft_dup2.c ft_execve.c ft_fork.c   		\
 	   								ft_free.c ft_open.c ft_pipe.c ft_unlink.c ft_waitpid.c) 		\

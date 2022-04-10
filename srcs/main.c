@@ -16,8 +16,10 @@ int	main(int argc, char **argv, char **envp)
 {
 	char		*input;
 	t_list		*token_head;
-	token_head = NULL;
+	//t_command	*command_list;
 
+	token_head = NULL;
+	//command_list = NULL;
 	environ_init(envp);
 	ft_signal();
     // while (true)
@@ -30,17 +32,17 @@ int	main(int argc, char **argv, char **envp)
 		mini_lexer(input, &token_head);
 		mini_parser(token_head);
 
-		t_list *tmp;
-		tmp = token_head;
-		while (tmp)
-		{
-			printf("Type is %i, %s\n", tmp->type, tmp->content);
-			tmp = tmp->next;
-		}
+		// t_list *tmp;
+		// tmp = token_head;
+		// while (tmp)
+		// {
+		// 	printf("Type is %i, %s\n", tmp->type, tmp->content);
+		// 	tmp = tmp->next;
+		// }
 
 		ft_lstclear(&token_head, free);
 		free(input);
     }
-	system("leaks minishell");
+	// system("leaks minishell");
 	return (0);
 }

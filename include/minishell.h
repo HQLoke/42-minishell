@@ -72,6 +72,7 @@ void	mini_lexer(char *input, t_list **token_head);
 //* /srcs/parser
 void	expand_cmd(t_list *node);
 void	expand_token(t_list *node);
+void	get_expansion(char *content, t_list **expansion);
 void	mini_parser(t_list *token_head);
 void	trim_token(char *content);
 //! ************************NEW REVAMP************************

@@ -32,7 +32,7 @@ int	builtin_child(t_mini *mini)
 	if (!ft_strncmp(mini->cmd_args[0], "echo", 5))
 		builtin_echo(mini->cmd_args, mini->env_head);
 	else if (!ft_strncmp(mini->cmd_args[0], "env", 4))
-		builtin_env(mini->cmd_args, mini->env_head);
+		builtin_env();
 	else if (!ft_strncmp(mini->cmd_args[0], "pwd", 4))
 		builtin_pwd(mini->cmd_args, mini->env_head);
 	else

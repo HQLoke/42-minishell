@@ -6,54 +6,53 @@
 /*   By: hloke <hloke@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 14:48:09 by hloke             #+#    #+#             */
-/*   Updated: 2022/04/08 16:09:49 by hloke            ###   ########.fr       */
+/*   Updated: 2022/04/10 10:27:00 by hloke            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	env_new_value(t_env **head, char *env_var, char *value)
+//* returns the index value of equal sign
+static int	equal_index(char *env_var)
 {
-	t_env	*new;
-	t_env	*tmp;
+	int	index;
 
-	new = ft_calloc(1, sizeof(t_env));
-	new->env_var = ft_strdup(env_var);
-	new->value = ft_strdup(value);
-	new->next = NULL;
-	tmp = *head;
-	if (*head == NULL)
-		*head = new;
-	else
-	{
-		while (tmp->next != NULL)
-			tmp = tmp->next;
-		tmp->next = new;
-	}
+	index = 0;
+	while (env_var[index] != '=' && env_var[index] != '\0')
+		index += 1;
+	if (env_var[index] == '\0')
+		ft_putstr_fd("warning: no equal sign found\n", STDERR_FILENO);
+	return (index);
 }
 
-void	env_set_value(t_env **head, char *env_var, char *value)
-{
-	t_env		*tmp;
-	int			len;
-
-	tmp = *head;
-	len = ft_strlen(env_var);
-	while (tmp)
-	{
-		if (ft_strncmp(tmp->env_var, env_var, len + 1) == 0)
-		{
-			if (tmp->value != NULL)
-				free(tmp->value);
-			tmp->value = ft_strdup(value);
-			return ;
-		}
-		tmp = tmp->next;
-	}
-	env_new_value(head, env_var, value);
-}
-
+//* env_var is of the form name=value
+//* index value plus one to include equal in the string
+//* first loop through all environment variables to find a match
+//* if found, replace the pointer with a new string
+//* if not, realloc and add a new string at the end
+//* returns 0 if successfully changed/added env_var
 int	ft_putenv(char *env_var)
 {
-	return (1);
+	int		i;
+	int		index;
+	char	**tmp;
+
+	i = 0;
+	index = equal_index(env_var) + 1;
+	while (g_environ->env_var[i])
+	{
+		if (ft_strncmp(g_environ->env_var[i], env_var, index) == 0)
+		{
+			free (g_environ->env_var[i]);
+			g_environ->env_var[i] = ft_strdup(env_var);
+			return (0);
+		}
+		i += 1;
+	}
+	g_environ->num_var += 1;
+	tmp = ft_array_dup(g_environ->env_var, g_environ->num_var);
+	ft_memdel((void **)g_environ->env_var);
+	g_environ->env_var = tmp;
+	g_environ->env_var[i] = ft_strdup(env_var);
+	return (0);
 }

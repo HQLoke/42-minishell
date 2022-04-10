@@ -14,38 +14,33 @@
 
 int	main(int argc, char **argv, char **envp)
 {
-	t_mini	*mini;
-	char	*input;
+	char		*input;
+	t_list		*token_head;
+	token_head = NULL;
 
 	environ_init(envp);
 	ft_signal();
-    while (true)
+    // while (true)
     {
         input = readline("мιηιѕнєℓℓ (づ｡◕‿‿◕｡)づ ");
 		if (input == NULL)
-			sigquit_handler(&mini);
+			sigquit_handler();
 
-		t_list	*token_head;
-		token_head = NULL;
+		add_history(input);
 		mini_lexer(input, &token_head);
 		mini_parser(token_head);
-		
-		while (token_head)
+
+		t_list *tmp;
+		tmp = token_head;
+		while (tmp)
 		{
-			printf("Type is %i, %s\n", token_head->type, token_head->content);
-			token_head = token_head->next;
+			printf("Type is %i, %s\n", tmp->type, tmp->content);
+			tmp = tmp->next;
 		}
 
-		// if (input == NULL)
-		// 	sigquit_handler(&mini);
-		// if (error_handling(input) == success)
-		// {
-		// 	add_history(input);
-		// 	process_line(mini, input);
-		// }
+		ft_lstclear(&token_head, free);
 		free(input);
     }
-
 	system("leaks minishell");
 	return (0);
 }

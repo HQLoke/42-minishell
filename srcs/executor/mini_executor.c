@@ -41,6 +41,7 @@ void	mini_executor(t_mini *mini, int cmd)
 	int			fd[2];
 	int			process;
 	static int	last_fd;
+	char		**DELETE_PATH;
 
 	if (cmd >= 0)
 		ft_pipe(fd);
@@ -53,9 +54,9 @@ void	mini_executor(t_mini *mini, int cmd)
 	if (mini->process_id == 0)
 	{
 		child_dup2_close(mini, fd, last_fd, cmd);
-		mini->last_exit_status = 0;
+		g_environ->exit_status = 0;
 		if (!builtin_child(mini))
-			ft_execve(mini->cmd_args, mini->path);
+			ft_execve(mini->cmd_args, DELETE_PATH);
 	}
 	parent_close(fd, &last_fd, cmd);
 }

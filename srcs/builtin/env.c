@@ -10,19 +10,23 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "minishell.h"
 
 /* Haven't solved the problem of output redirection
 Might have to use ft_putstr_fd instead of printf */
-
-int	builtin_env(char **cmd, t_env *env)
+int	builtin_env(void)
 {
-	(void)cmd;
-	while (env)
+	int		i;
+	char	*tmp;
+
+	i = 0;
+	while (g_environ->env_var[i] != NULL)
 	{
-		if (env->value != NULL)
-			printf("%s=%s\n", env->env_var, env->value);
-		env = env->next;
+		tmp = ft_strdup(g_environ->env_var[i]);
+		trim_token(tmp);
+		printf("%s\n", tmp);
+		free (tmp);
+		i += 1;
 	}
 	return (0);
 }

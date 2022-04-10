@@ -6,7 +6,7 @@
 /*   By: hloke <hloke@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 17:52:14 by hloke             #+#    #+#             */
-/*   Updated: 2022/04/10 14:17:25 by hloke            ###   ########.fr       */
+/*   Updated: 2022/04/10 17:30:11 by hloke            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void	mini_parser(t_list *token_head)
 	{
 		expand_token(token_tmp);
 		trim_token(token_tmp->content);
+		if (token_tmp->type == command)
+			expand_cmd(token_tmp);
 		token_tmp = token_tmp->next;
 	}
 }

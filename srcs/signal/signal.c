@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-void	sigquit_handler(t_mini **mini)
+void	sigquit_handler(void)
 {
 	ft_putstr_fd("\033[2D\n", 1);
 	exit (1);

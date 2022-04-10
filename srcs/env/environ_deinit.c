@@ -6,13 +6,13 @@
 /*   By: hloke <hloke@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 20:08:02 by hloke             #+#    #+#             */
-/*   Updated: 2022/04/08 15:58:51 by hloke            ###   ########.fr       */
+/*   Updated: 2022/04/10 14:37:02 by hloke            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	env_deinit(void)
+void	environ_deinit(void)
 {
 	
 }

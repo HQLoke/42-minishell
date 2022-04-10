@@ -36,12 +36,12 @@ typedef struct s_environ
 {
 	int		num_var;
 	char	**env_var;
+	int		exit_status;
 }	t_environ;
 
 t_environ	*g_environ;
 
 enum e_token{heredoc = 1, input, append, trunc, piping, command, argument};
-enum e_CONSTANTS{success = 99,	failure = 100};
 typedef struct s_env
 {
 	char			*env_var;
@@ -54,16 +54,12 @@ typedef struct s_mini
 	t_env	*env_head; //Delete later
 	char	*pwd;
 
-	t_list	*pipeline_head; //Delete later
-
 	t_list	*redirect;  //Free in child if exit
 	char	**cmd_args; //Free in child if exit
-	char	**path;     //Free in child if exit
 
 	pid_t	process_id;
 	int		in_fd;
 	int		out_fd;
-	int		last_exit_status;
 }	t_mini;
 
 //! ************************NEW REVAMP************************
@@ -73,12 +69,15 @@ void	check_token(t_list **token_head);
 void	set_token(t_list **token_head);
 void	mini_lexer(char *input, t_list **token_head);
 
+//* /srcs/parser
+void	expand_cmd(t_list *node);
 void	expand_token(t_list *node);
 void	mini_parser(t_list *token_head);
+void	trim_token(char *content);
 //! ************************NEW REVAMP************************
 
 //* /srcs/env
-void	environ_deinit(t_env **head);
+void	environ_deinit(void);
 void	environ_init(char **envp);
 int		ft_delenv(char *env_key);
 char	*ft_getenv(char *env_key);
@@ -94,13 +93,9 @@ int		redirect_input(t_list *redirect);
 int		redirect_output(t_list *redirect);
 void	wait_exit_status(t_mini *mini);
 
-//* /srcs/parser
-void	process_line(t_mini *mini, const char *line);
-void	trim_quotes(char **cmd_args);
-
 //* /srcs/signal
 void	ft_signal(void);
-void	sigquit_handler(t_mini **mini);
+void	sigquit_handler(void);
 
 //* /srcs/standard
 void	ft_access(const char *filename, int mode);
@@ -117,7 +112,6 @@ pid_t	ft_waitpid(pid_t pid, int *wstatus, int options);
 //* /srcs/utils
 char	**ft_array_dup(char **src_array, int num_var);
 size_t	ft_array_size(char **array);
-void	ft_error(const char *str, int fd, int *exit);
 void	ft_error_exit(char *error_msg);
 void	ft_memdel(void **ptr);
 void	ft_new_addback(t_list **head, char *content, int type);
@@ -128,7 +122,7 @@ int		argv_len(char *argv[]);
 void	cd_error(char *s1, char *s2, char *s3);
 int		builtin_cd(char **cmd, t_env *env);
 int		builtin_echo(char **cmd, t_env *env);
-int		builtin_env(char **cmd, t_env *env);
+int		builtin_env(void);
 int		builtin_exit(char **cmd, t_env *env);
 int		builtin_pwd(char **cmd, t_env *env);
 int		builtin_unset(char **cmd, t_env *env);

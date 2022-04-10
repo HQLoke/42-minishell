@@ -56,7 +56,9 @@ Follow this process flow: lexer > parser > executor
    For example in the getenv function, return a pointer to the value instead if
    successful, else return NULL.
 3: Instead of storing split information like env_var and value, I can use functions
-   like put/set/del to retrieve information. Then I don't need to combine env_var
+   like del/get/put to retrieve information. Then I don't need to combine env_var
    and value again everytime I run execve.
 4: It's not a memory leak if it's still reachable. Don't have to religiously free
    everything.
+5: DRY principle: Before coding, identify if there are similarities between the
+   problems and try to extract that portion out as a function.

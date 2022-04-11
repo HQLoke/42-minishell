@@ -12,29 +12,29 @@
 
 #include "../../include/minishell.h"
 
-int	builtin_parent(t_mini *mini)
+int	builtin_parent(t_cmd *node)
 {
-	if (!ft_strncmp(mini->cmd_args[0], "cd", 3))
-		builtin_cd(mini->cmd_args, mini->env_head);
-	else if (!ft_strncmp(mini->cmd_args[0], "unset", 6))
-		builtin_unset(mini->cmd_args, mini->env_head);
-	else if (!ft_strncmp(mini->cmd_args[0], "export", 7))
-		builtin_export(mini->cmd_args, mini->env_head);
-	else if (!ft_strncmp(mini->cmd_args[0], "exit", 5))
-		builtin_exit(mini->cmd_args, mini->env_head);
+	if (!ft_strncmp(node->cmd_args[0], "cd", 3))
+		builtin_cd(node->cmd_args);
+	else if (!ft_strncmp(node->cmd_args[0], "unset", 6))
+		builtin_unset(node->cmd_args);
+	else if (!ft_strncmp(node->cmd_args[0], "export", 7))
+		builtin_export(node->cmd_args);
+	else if (!ft_strncmp(node->cmd_args[0], "exit", 5))
+		builtin_exit(node->cmd_args);
 	else
 		return (0);
 	return (1);
 }
 
-int	builtin_child(t_mini *mini)
+int	builtin_child(t_cmd *node)
 {
-	if (!ft_strncmp(mini->cmd_args[0], "echo", 5))
-		builtin_echo(mini->cmd_args, mini->env_head);
-	else if (!ft_strncmp(mini->cmd_args[0], "env", 4))
+	if (!ft_strncmp(node->cmd_args[0], "echo", 5))
+		builtin_echo(node->cmd_args);
+	else if (!ft_strncmp(node->cmd_args[0], "env", 4))
 		builtin_env();
-	else if (!ft_strncmp(mini->cmd_args[0], "pwd", 4))
-		builtin_pwd(mini->cmd_args, mini->env_head);
+	else if (!ft_strncmp(node->cmd_args[0], "pwd", 4))
+		builtin_pwd(node->cmd_args);
 	else
 		return (0);
 	exit(0);

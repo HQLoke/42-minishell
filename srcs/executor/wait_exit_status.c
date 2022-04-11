@@ -6,13 +6,13 @@
 /*   By: hloke <hloke@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 08:58:23 by hloke             #+#    #+#             */
-/*   Updated: 2022/04/10 17:30:00 by hloke            ###   ########.fr       */
+/*   Updated: 2022/04/11 16:35:57 by hloke            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	wait_exit_status(t_mini *mini)
+void	wait_exit_status(void)
 {
 	int		status;
 

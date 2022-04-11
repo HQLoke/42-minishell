@@ -26,10 +26,9 @@ void	cd_error(char *s1, char *s2, char *s3)
 	Changes the current working directory to the given path with chdir and
 	Change the env $PWD and $OLDPWD.
 */
-int	check_pwd(char **cmd, t_env *env)
+int	check_pwd(char **cmd)
 {
 	char	*old_pwd_path;
-	(void)env;
 	old_pwd_path = ft_strjoin("OLDPWD=", *cmd);
 	if (old_pwd_path == NULL)
 		return (1);
@@ -58,13 +57,12 @@ int	check_cd(char *current_path)
 	return (0);
 }
 
-int	set_home_path(t_env *env)
+int	set_home_path(void)
 {
 	char	*path;
 	int		i;
 
 	i = 0;
-	(void)env;
 	path = getenv("HOME");
 	i = chdir(path);
 	if (i < 0)
@@ -78,7 +76,7 @@ int	set_home_path(t_env *env)
 /*
 	Changes the current directory.
 */
-int	builtin_cd(char **cmd, t_env *env)
+int	builtin_cd(char **cmd)
 {
 	int		status;
 	char	*old_pwd_path;
@@ -87,11 +85,11 @@ int	builtin_cd(char **cmd, t_env *env)
 	if (old_pwd_path == NULL)
 		return (EXIT_FAILURE);
 	if (cmd[1] == NULL)
-		status = set_home_path(env);
+		status = set_home_path();
 	else
 		status = check_cd(cmd[1]);
 	if (status == 0)
-		status = check_pwd(&old_pwd_path, env);
+		status = check_pwd(&old_pwd_path);
 	free(old_pwd_path);
 	return (EXIT_SUCCESS);
 }

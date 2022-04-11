@@ -6,11 +6,31 @@
 /*   By: hloke <hloke@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 11:28:15 by hloke             #+#    #+#             */
-/*   Updated: 2022/04/11 15:22:56 by hloke            ###   ########.fr       */
+/*   Updated: 2022/04/11 15:45:39 by hloke            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static void	set_cmd_num(t_cmd **command_head)
+{
+	t_cmd	*tmp;
+	int		cmd;
+
+	tmp = *command_head;
+	cmd = 0;
+	while (tmp)
+	{
+		if (cmd == 0 && tmp->next == NULL)
+			tmp->cmd_num = -2;
+		else if (cmd != 0 && tmp->next == NULL)
+			tmp->cmd_num = -1;
+		else
+			tmp->cmd_num = cmd;
+		cmd += 1;
+		tmp = tmp->next;
+	}
+}
 
 static void	add_command(t_cmd **command_head)
 {
@@ -39,7 +59,8 @@ void	make_cmd_list(t_list *token_head, t_cmd **command_head, int pipe_count)
 	char	**tmp;
 	
 	while (pipe_count-- > 0)
-		add_command(command_head);	
+		add_command(command_head);
+	set_cmd_num(command_head);
 	token_tmp = token_head;
 	cmd_tmp = *command_head;
 	while (token_tmp)

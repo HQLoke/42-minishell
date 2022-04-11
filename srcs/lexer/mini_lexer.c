@@ -6,7 +6,7 @@
 /*   By: hloke <hloke@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 09:47:48 by hloke             #+#    #+#             */
-/*   Updated: 2022/04/10 13:58:30 by hloke            ###   ########.fr       */
+/*   Updated: 2022/04/11 09:07:03 by hloke            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,7 @@ static int	token_string(t_list **token_head, char *input)
 			i += 1;
 	}
 	tmp = ft_substr(input, 0, i);
-	ft_new_addback(token_head, tmp, 0);
-	free (tmp);
+	ft_lstadd_back(token_head, ft_lstnew(tmp, 0));
 	return (i);
 }
 
@@ -50,8 +49,7 @@ static int	token_pipe(t_list **token_head, char *input)
 	char	*tmp;
 
 	tmp = ft_substr(input, 0, 1);
-	ft_new_addback(token_head, tmp, 0);
-	free (tmp);
+	ft_lstadd_back(token_head, ft_lstnew(tmp, 0));
 	return (1);
 }
 
@@ -62,13 +60,11 @@ static int	token_redirect(t_list **token_head, char *input)
 	if (input[0] == input[1])
 	{
 		tmp = ft_substr(input, 0, 2);
-		ft_new_addback(token_head, tmp, 0);
-		free (tmp);
+		ft_lstadd_back(token_head, ft_lstnew(tmp, 0));
 		return (2);
 	}
 	tmp = ft_substr(input, 0, 1);
-	ft_new_addback(token_head, tmp, 0);
-	free (tmp);
+	ft_lstadd_back(token_head, ft_lstnew(tmp, 0));
 	return (1);
 }
 

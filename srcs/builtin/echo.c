@@ -40,7 +40,7 @@ bool	process_flag(const char *cmd, bool *n, bool *status)
 	return (0);
 }
 
-int	builtin_echo(char **cmd, t_env *env)
+int	builtin_echo(char **cmd)
 {
 	bool	status;
 	bool	n;

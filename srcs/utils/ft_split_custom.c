@@ -51,8 +51,7 @@ void	ft_split_custom(t_list **head, const char *input, char c)
 					i += 1;
 			}
 			tmp = ft_substr(input, 0, i);
-			ft_new_addback(head, tmp, 0);
-			free (tmp);
+			ft_lstadd_back(head, ft_lstnew(tmp, 0));
 			input += i;
 		}
 		else

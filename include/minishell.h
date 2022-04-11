@@ -32,6 +32,9 @@
 # include "ansi_color_codes.h"
 # include "libft.h"
 
+struct s_environ	*g_environ;
+enum e_token{heredoc = 1, input, append, trunc, piping, command, argument};
+
 typedef struct s_environ
 {
 	int		num_var;
@@ -39,9 +42,16 @@ typedef struct s_environ
 	int		exit_status;
 }	t_environ;
 
-t_environ	*g_environ;
+typedef struct s_cmd
+{
+	int		cmd_num;
+	int		in_fd;
+	int		out_fd;
+	t_list	*redirect;
+	char	**cmd_args;
+	struct s_cmd *next;
+}	t_cmd;
 
-enum e_token{heredoc = 1, input, append, trunc, piping, command, argument};
 typedef struct s_env
 {
 	char			*env_var;
@@ -63,20 +73,6 @@ typedef struct s_mini
 }	t_mini;
 
 //! ************************NEW REVAMP************************
-//* /srcs/lexer
-void	assign_token(t_list **token_head);
-void	check_token(t_list **token_head);
-void	set_token(t_list **token_head);
-void	mini_lexer(char *input, t_list **token_head);
-
-//* /srcs/parser
-void	expand_cmd(t_list *node);
-void	expand_token(t_list *node);
-void	get_expansion(char *content, t_list **expansion);
-void	mini_parser(t_list *token_head);
-void	trim_token(char *content);
-//! ************************NEW REVAMP************************
-
 //* /srcs/env
 void	environ_deinit(void);
 void	environ_init(char **envp);
@@ -85,14 +81,28 @@ char	*ft_getenv(char *env_key);
 int		ft_putenv(char *env_var);
 
 //* /srcs/executor
-void	child_dup2_close(t_mini *mini, int fd[2], int last_fd, int cmd);
-int		builtin_parent(t_mini *mini);
-int		builtin_child(t_mini *mini);
-int		builtin(t_mini *mini);
-void	mini_executor(t_mini *mini, int cmd);
+void	child_dup2_close(t_cmd *node, int fd[2], int last_fd);
+void	mini_executor(t_cmd *command_head);
+void	parent_close(int fd[2], int *last_fd, int cmd);
 int		redirect_input(t_list *redirect);
 int		redirect_output(t_list *redirect);
-void	wait_exit_status(t_mini *mini);
+void	wait_exit_status(void);
+
+//* /srcs/lexer
+void	assign_token(t_list **token_head);
+void	check_token(t_list **token_head);
+void	set_token(t_list **token_head);
+void	mini_lexer(char *input, t_list **token_head);
+
+//* /srcs/parser
+void	expand_cmd(t_list *node);
+void	expand_token(t_list *node, t_list *expansion);
+void	get_expansion(char *content, t_list **expansion);
+void	make_cmd_list(t_list *token_head, t_cmd **command_head, int pipe_count);
+void	mini_parser(t_list *token_head, t_cmd **command_head);
+void	trim_token(char *content);
+void	unmake_cmd_list(t_cmd **command_head);
+//! ************************NEW REVAMP************************
 
 //* /srcs/signal
 void	ft_signal(void);
@@ -102,7 +112,7 @@ void	sigquit_handler(void);
 void	ft_access(const char *filename, int mode);
 void	ft_close(int fd);
 void	ft_dup2(int oldfd, int newfd);
-void	ft_execve(char **cmd_args, char **path);
+void	ft_execve(char **cmd_args);
 pid_t	ft_fork(void);
 void	ft_free(void *ptr);
 int		ft_open(const char *path, int flag, int mode);
@@ -111,28 +121,30 @@ void	ft_unlink(const char *pathname);
 pid_t	ft_waitpid(pid_t pid, int *wstatus, int options);
 
 //* /srcs/utils
+char	**ft_array_add(char **src_array, char *str);
 char	**ft_array_dup(char **src_array, int num_var);
 size_t	ft_array_size(char **array);
 void	ft_error_exit(char *error_msg);
 void	ft_memdel(void **ptr);
-void	ft_new_addback(t_list **head, char *content, int type);
 void	ft_split_custom(t_list **head, const char *input, char delim);
-int		argv_len(char *argv[]);
 
-//* /srcs/builtin
-void	cd_error(char *s1, char *s2, char *s3);
-int		builtin_cd(char **cmd, t_env *env);
-int		builtin_echo(char **cmd, t_env *env);
-int		builtin_env(void);
-int		builtin_exit(char **cmd, t_env *env);
-int		builtin_pwd(char **cmd, t_env *env);
-int		builtin_unset(char **cmd, t_env *env);
-int		builtin_export(char **cmd, t_env *env);
-int		get_arglen(char *s1, char *s2);
-char	*add_front(int fd, char *value, char s);
-char	*add_end(int fd, char *value, char c);
-void	fill_list(t_env *env, char argv);
-int		check_list(t_env *env, t_env *new_env, char *argv, int i);
-int		check_var_syntax(char *str);
-void	print_not_valid(char *cmd, char *str);
+// //* /srcs/builtin
+// int		builtin_parent(t_cmd *node);
+// int		builtin_child(t_cmd *node);
+// int		builtin(t_mini *mini);
+// void	cd_error(char *s1, char *s2, char *s3);
+// int		builtin_cd(char **cmd);
+// int		builtin_echo(char **cmd);
+// int		builtin_env(void);
+// int		builtin_exit(char **cmd);
+// int		builtin_pwd(char **cmd);
+// int		builtin_unset(char **cmd);
+// int		builtin_export(char **cmd);
+// int		get_arglen(char *s1, char *s2);
+// char	*add_front(int fd, char *value, char s);
+// char	*add_end(int fd, char *value, char c);
+// void	fill_list(t_env *env, char argv);
+// int		check_list(t_env *env, t_env *new_env, char *argv, int i);
+// int		check_var_syntax(char *str);
+// void	print_not_valid(char *cmd, char *str);
 #endif

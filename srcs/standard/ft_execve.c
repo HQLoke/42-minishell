@@ -14,28 +14,29 @@
 
 //* Execute non-builtin functions only
 //* Handles Relative & Absolute first, then PATH
-void	ft_execve(char **cmd_args, char **path)
+void	ft_execve(char **cmd_args)
 {
 	int		i;
 	char	*tmp;
 	char	*cmd;
+	char	**path;
 
 	i = 0;
-	if (execve(cmd_args[0], cmd_args, path) == -1)
+	path = ft_split(ft_getenv("PATH"), ':');
+	if (execve(cmd_args[0], cmd_args, g_environ->env_var) == -1)
 	{
-		while (path[i])
+		while (path[i++])
 		{
 			tmp = ft_strjoin(path[i], "/");
 			cmd = ft_strjoin(tmp, cmd_args[0]);
-			if (execve(cmd, cmd_args, path) == -1)
+			if (execve(cmd, cmd_args, g_environ->env_var) == -1)
 			{
 				free (tmp);
 				free (cmd);
 			}
-			i += 1;
 		}
 	}
+	ft_memdel((void **)path);
 	ft_putstr_fd(cmd_args[0], 2);
-	ft_putstr_fd(": command not found\n", 2);
-	exit (EXIT_FAILURE);
+	ft_error_exit(": command not found\n");
 }

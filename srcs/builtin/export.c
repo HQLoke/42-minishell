@@ -38,23 +38,20 @@ int	check_var_syntax(char *str)
 	return (1);
 }
 
-static void    print_export(t_env *env)
+static void    print_export(void)
 {
-	if (!env)
-		return ;
-	while (env)
+	while ()
 	{
 		printf("declare -x ");
-		printf("%s", env->env_var);
-		if (env->value)
-			printf("=\"%s\"", env->value);
+
+			printf("=\"%s\"");
 		printf("\n");
-		env = env->next;
+
 	}
 	exit (0);
 }
 
-static int	export_set(t_env *env, char *argv)
+static int	export_set(char *argv)
 {
 	int		i;
 	t_env	*new_env;
@@ -88,7 +85,7 @@ int	builtin_export(char **cmd, t_env *env)
 
 	i = 0;
 
-	if (argv_len(cmd) < 2)
+	if (ft_array_size(cmd) < 2)
 		print_export(env);
 	if (cmd[1])
 	{

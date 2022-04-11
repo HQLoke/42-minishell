@@ -16,16 +16,12 @@
 Might have to use ft_putstr_fd instead of printf */
 int	builtin_env(void)
 {
-	int		i;
-	char	*tmp;
+	int	i;
 
 	i = 0;
 	while (g_environ->env_var[i] != NULL)
 	{
-		tmp = ft_strdup(g_environ->env_var[i]);
-		trim_token(tmp);
-		printf("%s\n", tmp);
-		free (tmp);
+		printf("%s\n", g_environ->env_var[i]);
 		i += 1;
 	}
 	return (0);

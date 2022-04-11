@@ -5,12 +5,16 @@
 #include <stdio.h>
 #include <stdarg.h>
 
-char *nani;
-
 int main(int argc, char **argv, char **envp)
 {	
-	nani = ft_strdup("Hello ");
+	char *array;
 
-	printf("%s\n", nani);
+	array = ft_strdup("Hello");
+	int i = 0;
+	while (array[i++])
+	{
+		printf("Hello\n");
+	}
+
 	return (0);
 }

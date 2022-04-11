@@ -48,23 +48,23 @@ static void	output_dup2_close(int num_close, ...)
 	va_end(list);
 }
 
-static void	child_dup2_close_continue(t_mini *mini, int last_fd, int cmd)
+static void	child_dup2_close_continue(t_cmd *node, int last_fd)
 {
-	if (cmd == -1)
+	if (node->cmd_num == -1)
 	{
-		if (mini->in_fd != -1)
-			input_dup2_close(2, mini->in_fd, last_fd);
+		if (node->in_fd != -1)
+			input_dup2_close(2, node->in_fd, last_fd);
 		else
 			input_dup2_close(1, last_fd);
-		if (mini->out_fd != -1)
-			output_dup2_close(1, mini->out_fd);
+		if (node->out_fd != -1)
+			output_dup2_close(1, node->out_fd);
 	}
-	else if (cmd == -2)
+	else if (node->cmd_num == -2)
 	{
-		if (mini->in_fd != -1)
-			input_dup2_close(1, mini->in_fd);
-		if (mini->out_fd != -1)
-			output_dup2_close(1, mini->out_fd);
+		if (node->in_fd != -1)
+			input_dup2_close(1, node->in_fd);
+		if (node->out_fd != -1)
+			output_dup2_close(1, node->out_fd);
 	}
 }
 
@@ -72,29 +72,48 @@ static void	child_dup2_close_continue(t_mini *mini, int last_fd, int cmd)
 //*            cmd > 0  means middle process
 //*            cmd = -1 means last process
 //* If N == 1, cmd = -2 means first & last, or one and only process
-void	child_dup2_close(t_mini *mini, int fd[2], int last_fd, int cmd)
+void	child_dup2_close(t_cmd *node, int fd[2], int last_fd)
 {
-	mini->in_fd = redirect_input(mini->redirect);
-	mini->out_fd = redirect_output(mini->redirect);
-	if (cmd == 0)
+	node->in_fd = redirect_input(node->redirect);
+	node->out_fd = redirect_output(node->redirect);
+	if (node->cmd_num == 0)
 	{
-		if (mini->in_fd != -1)
-			input_dup2_close(1, mini->in_fd);
-		if (mini->out_fd != -1)
-			output_dup2_close(3, mini->out_fd, fd[1], fd[0]);
+		if (node->in_fd != -1)
+			input_dup2_close(1, node->in_fd);
+		if (node->out_fd != -1)
+			output_dup2_close(3, node->out_fd, fd[1], fd[0]);
 		else
 			output_dup2_close(2, fd[1], fd[0]);
+	}
+	else if (node->cmd_num > 0)
+	{
+		if (node->in_fd != -1)
+			input_dup2_close(2, node->in_fd, last_fd);
+		else
+			input_dup2_close(1, last_fd);
+		if (node->out_fd != -1)
+			output_dup2_close(3, node->out_fd, fd[1], fd[0]);
+		else
+			output_dup2_close(2, fd[1], fd[0]);
+	}
+	child_dup2_close_continue(node, last_fd);
+}
+
+void	parent_close(int fd[2], int *last_fd, int cmd)
+{
+	if (cmd == 0)
+	{
+		close(fd[1]);
+		*last_fd = fd[0];
 	}
 	else if (cmd > 0)
 	{
-		if (mini->in_fd != -1)
-			input_dup2_close(2, mini->in_fd, last_fd);
-		else
-			input_dup2_close(1, last_fd);
-		if (mini->out_fd != -1)
-			output_dup2_close(3, mini->out_fd, fd[1], fd[0]);
-		else
-			output_dup2_close(2, fd[1], fd[0]);
+		close(*last_fd);
+		close(fd[1]);
+		*last_fd = fd[0];
 	}
-	child_dup2_close_continue(mini, last_fd, cmd);
+	else if (cmd == -1)
+	{
+		close(*last_fd);
+	}
 }

@@ -21,17 +21,14 @@ static int	input_heredoc(const char *limit)
 	int		tmp_fd;
 
 	tmp_filename = ".heredoc_tmp";
-	if (access(tmp_filename, F_OK) == 0)
-		ft_unlink(tmp_filename);
 	tmp_fd = ft_open(tmp_filename, O_CREAT | O_WRONLY | O_TRUNC, 0666);
-	line = readline("heredoc> ");
 	while (1)
 	{
+		line = readline("heredoc> ");
 		if (ft_strncmp(line, limit, ft_strlen(limit) + 1) == 0)
 			break ;
 		ft_putstr_fd(line, tmp_fd);
 		ft_putstr_fd("\n", tmp_fd);
-		line = readline("heredoc> ");
 	}
 	free (line);
 	ft_close(tmp_fd);

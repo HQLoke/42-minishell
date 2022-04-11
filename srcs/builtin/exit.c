@@ -16,11 +16,10 @@
 	Prints exit and error message. 
 	minishell is closed and the exit code and terminates it.
 */
-int	builtin_exit(char **cmd, t_env *env)
+int	builtin_exit(char **cmd)
 {
 	int	status;
 
-	(void)env;
 	status = 0;
 	while (cmd[status] != NULL)
 		++status;

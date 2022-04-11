@@ -6,7 +6,7 @@
 /*   By: hloke <hloke@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 17:24:07 by hloke             #+#    #+#             */
-/*   Updated: 2022/04/10 20:01:31 by hloke            ###   ########.fr       */
+/*   Updated: 2022/04/11 10:59:09 by hloke            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	expand_cmd(t_list *node)
 	char	**cmd;
 	t_list	*next;
 	int		i;
-	
+
 	cmd = ft_split(node->content, ' ');
 	i = 1;
 	if (ft_array_size(cmd) != 1)
@@ -27,7 +27,10 @@ void	expand_cmd(t_list *node)
 		next = node->next;
 		node->next = NULL;
 		free (node->content);
-		node->content = ft_strdup(cmd[0]);
+		if (cmd[0] == NULL)
+			node->content = ft_strdup("");
+		else
+			node->content = ft_strdup(cmd[0]);
 		while (cmd[i] != NULL)
 		{
 			ft_lstadd_back(&node, ft_lstnew(ft_strdup(cmd[i]), argument));

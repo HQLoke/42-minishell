@@ -12,9 +12,7 @@
 
 #include "minishell.h"
 
-/* Haven't solved the problem of output redirection
-Might have to use ft_putstr_fd instead of printf */
-int	builtin_env(void)
+void	builtin_env(void)
 {
 	int	i;
 
@@ -24,5 +22,4 @@ int	builtin_env(void)
 		printf("%s\n", g_environ->env_var[i]);
 		i += 1;
 	}
-	return (0);
 }

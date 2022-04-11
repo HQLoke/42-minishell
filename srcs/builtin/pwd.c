@@ -10,17 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "minishell.h"
 
 /*
      Prints the current working directory
 */
-int	builtin_pwd(char **cmd, t_env *env)
+int	builtin_pwd(char **cmd)
 {
 	char	*dir;
 
-	(void)cmd;
-	(void)env;
 	dir = getcwd(NULL, 0);
 	if (dir == NULL)
 	{

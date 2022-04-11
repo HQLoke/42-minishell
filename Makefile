@@ -21,9 +21,9 @@ PARSER_DIR      = srcs/parser/
 SIGNAL_DIR		= srcs/signal/
 STANDARD_DIR  	= srcs/standard/
 UTILS_DIR     	= srcs/utils/
-SRCS =  \
+SRCS = $(addprefix $(BUILTIN_DIR), cd.c echo.c env.c exit.c export.c pwd.c unset.c)  				\
 	   $(addprefix $(ENV_DIR), environ_deinit.c environ_init.c ft_delenv.c ft_getenv.c ft_putenv.c) \
-	   $(addprefix $(EXECUTOR_DIR), dup2_close_utils.c mini_executor.c 		    					\
+	   $(addprefix $(EXECUTOR_DIR), dup2_close_utils.c execute_builtin.c mini_executor.c 		    \
 	   								redirect_input.c redirect_output.c wait_exit_status.c)			\
 	   $(addprefix $(LEXER_DIR), assign_token.c check_token.c set_token.c mini_lexer.c)				\
 	   $(addprefix $(PARSER_DIR), cmd_list_utils.c expand_cmd.c expand_token.c get_expansion.c 		\

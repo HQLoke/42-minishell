@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "minishell.h"
 
 /* 
 	Supports -n; Check if the -n option is the same.
@@ -46,7 +46,6 @@ int	builtin_echo(char **cmd)
 	bool	n;
 	int		i;
 
-	(void)env;
 	status = 1;
 	n = 1;
 	i = 1;

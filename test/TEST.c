@@ -7,14 +7,6 @@
 
 int main(int argc, char **argv, char **envp)
 {	
-	char *array;
-
-	array = ft_strdup("Hello");
-	int i = 0;
-	while (array[i++])
-	{
-		printf("Hello\n");
-	}
 
 	return (0);
 }

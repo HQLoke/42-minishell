@@ -22,7 +22,7 @@ int	main(int argc, char **argv, char **envp)
 	command_head = NULL;
 	environ_init(envp);
 	ft_signal();
-    // while (true)
+    while (true)
     {
         input = readline("мιηιѕнєℓℓ (づ｡◕‿‿◕｡)づ ");
 		if (input == NULL)

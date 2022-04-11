@@ -52,27 +52,18 @@ typedef struct s_cmd
 	struct s_cmd *next;
 }	t_cmd;
 
-typedef struct s_env
-{
-	char			*env_var;
-	char			*value;
-	struct s_env	*next;
-}	t_env;
+//* /srcs/builtin
+void	cd_error(char *s1, char *s2, char *s3);
+int		builtin_cd(char **cmd);
+int		builtin_echo(char **cmd);
+void	builtin_env(void);
+int		builtin_exit(char **cmd);
+int		builtin_export(char **cmd);
+int		builtin_pwd(char **cmd);
+int		builtin_unset(char **cmd);
+int		check_var_syntax(char *str);
+void	print_not_valid(char *cmd, char *str);
 
-typedef struct s_mini
-{
-	t_env	*env_head; //Delete later
-	char	*pwd;
-
-	t_list	*redirect;  //Free in child if exit
-	char	**cmd_args; //Free in child if exit
-
-	pid_t	process_id;
-	int		in_fd;
-	int		out_fd;
-}	t_mini;
-
-//! ************************NEW REVAMP************************
 //* /srcs/env
 void	environ_deinit(void);
 void	environ_init(char **envp);
@@ -82,6 +73,7 @@ int		ft_putenv(char *env_var);
 
 //* /srcs/executor
 void	child_dup2_close(t_cmd *node, int fd[2], int last_fd);
+int		execute_builtin(t_cmd *node);
 void	mini_executor(t_cmd *command_head);
 void	parent_close(int fd[2], int *last_fd, int cmd);
 int		redirect_input(t_list *redirect);
@@ -102,7 +94,6 @@ void	make_cmd_list(t_list *token_head, t_cmd **command_head, int pipe_count);
 void	mini_parser(t_list *token_head, t_cmd **command_head);
 void	trim_token(char *content);
 void	unmake_cmd_list(t_cmd **command_head);
-//! ************************NEW REVAMP************************
 
 //* /srcs/signal
 void	ft_signal(void);
@@ -127,24 +118,4 @@ size_t	ft_array_size(char **array);
 void	ft_error_exit(char *error_msg);
 void	ft_memdel(void **ptr);
 void	ft_split_custom(t_list **head, const char *input, char delim);
-
-// //* /srcs/builtin
-// int		builtin_parent(t_cmd *node);
-// int		builtin_child(t_cmd *node);
-// int		builtin(t_mini *mini);
-// void	cd_error(char *s1, char *s2, char *s3);
-// int		builtin_cd(char **cmd);
-// int		builtin_echo(char **cmd);
-// int		builtin_env(void);
-// int		builtin_exit(char **cmd);
-// int		builtin_pwd(char **cmd);
-// int		builtin_unset(char **cmd);
-// int		builtin_export(char **cmd);
-// int		get_arglen(char *s1, char *s2);
-// char	*add_front(int fd, char *value, char s);
-// char	*add_end(int fd, char *value, char c);
-// void	fill_list(t_env *env, char argv);
-// int		check_list(t_env *env, t_env *new_env, char *argv, int i);
-// int		check_var_syntax(char *str);
-// void	print_not_valid(char *cmd, char *str);
 #endif

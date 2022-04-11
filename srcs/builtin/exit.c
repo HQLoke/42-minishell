@@ -16,13 +16,12 @@
 	Prints exit and error message. 
 	minishell is closed and the exit code and terminates it.
 */
-int	builtin_exit(char **cmd)
+int	builtin_exit(t_cmd *node)
 {
 	int	status;
 
 	status = 0;
-	while (cmd[status] != NULL)
-		++status;
+	
 	if (status == 1)
 	{
 		ft_putendl_fd("exit", 1);

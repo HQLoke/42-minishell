@@ -54,13 +54,13 @@ typedef struct s_cmd
 
 //* /srcs/builtin
 void	cd_error(char *s1, char *s2, char *s3);
-int		builtin_cd(char **cmd);
-int		builtin_echo(char **cmd);
-void	builtin_env(void);
-int		builtin_exit(char **cmd);
-int		builtin_export(char **cmd);
-int		builtin_pwd(char **cmd);
-int		builtin_unset(char **cmd);
+int		builtin_cd(t_cmd *node);
+int		builtin_echo(t_cmd *node);
+void	builtin_env(t_cmd *node);
+int		builtin_exit(t_cmd *node);
+int		builtin_export(t_cmd *node);
+int		builtin_pwd(t_cmd *node);
+int		builtin_unset(t_cmd *node);
 int		check_var_syntax(char *str);
 void	print_not_valid(char *cmd, char *str);
 

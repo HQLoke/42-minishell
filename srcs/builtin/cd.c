@@ -76,7 +76,7 @@ int	set_home_path(void)
 /*
 	Changes the current directory.
 */
-int	builtin_cd(char **cmd)
+int	builtin_cd(t_cmd *node)
 {
 	int		status;
 	char	*old_pwd_path;

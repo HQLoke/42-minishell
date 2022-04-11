@@ -12,10 +12,7 @@
 
 #include "minishell.h"
 
-/*
-     Prints the current working directory
-*/
-int	builtin_pwd(char **cmd)
+int	builtin_pwd(t_cmd *node)
 {
 	char	*dir;
 

@@ -12,19 +12,19 @@
 
 #include "minishell.h"
 
-int	builtin_unset(char **cmd)
+int	builtin_unset(t_cmd *node)
 {
 	int		i;
 
 	i = 0;
-	while (cmd[++i] != NULL)
+	while (node->cmd_args[i] != NULL)
 	{
-		if (check_var_syntax(cmd[i]) == -1)
+		if (check_var_syntax(node->cmd_args[i]) == -1)
 		{
-			print_not_valid("unset", cmd[i++]);
+			print_not_valid("unset", node->cmd_args[i]);
 			return (-1);
 		}
-		
+		i += 1;
 	}
 	return (0);
 }

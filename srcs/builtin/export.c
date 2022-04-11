@@ -38,35 +38,34 @@ int	check_var_syntax(char *str)
 
 static void    print_export(void)
 {
-	while ()
+	int	i;
+
+	i = 0;
+	while (g_environ->env_var[i])
 	{
 		printf("declare -x ");
 
 			printf("=\"%s\"");
 		printf("\n");
-
+		i += 1;
 	}
-	exit (0);
 }
 
-int	builtin_export(char **cmd)
+int	builtin_export(t_cmd *node)
 {
 	int	i;
 
-	i = 0;
-
-	if (ft_array_size(cmd) < 2)
+	if (ft_array_size(node->cmd_args) < 2)
 		print_export();
-	if (cmd[1])
+	i = 0;
+	while (node->cmd_args[i])
 	{
-		while (cmd[++i])
+		if (!check_var_syntax(node->cmd_args[i]))
 		{
-			if (!check_var_syntax(cmd[i]))
-			{
-				print_not_valid("export", cmd[i++]);
-				return (1);
-			}
+			print_not_valid("export", node->cmd_args[i]);
+			return (1);
 		}
+		i += 1;
 	}
 	return (EXIT_SUCCESS);
 }

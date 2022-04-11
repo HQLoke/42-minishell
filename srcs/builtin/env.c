@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-void	builtin_env(void)
+void	builtin_env(t_cmd *node)
 {
 	int	i;
 

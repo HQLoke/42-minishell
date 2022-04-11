@@ -12,22 +12,24 @@
 
 #include "minishell.h"
 
+//* returns 0 if no match is found
+//* else returns 1
 int	execute_builtin(t_cmd *node)
 {
 	if (!ft_strncmp(node->cmd_args[0], "cd", 3))
-		builtin_cd(node->cmd_args);
+		builtin_cd(node);
 	else if (!ft_strncmp(node->cmd_args[0], "echo", 5))
-		builtin_echo(node->cmd_args);
+		builtin_echo(node);
 	else if (!ft_strncmp(node->cmd_args[0], "env", 4))
-		builtin_env();
+		builtin_env(node);
 	else if (!ft_strncmp(node->cmd_args[0], "exit", 5))
-		builtin_exit(node->cmd_args);
+		builtin_exit(node);
 	else if (!ft_strncmp(node->cmd_args[0], "export", 7))
-		builtin_export(node->cmd_args);
+		builtin_export(node);
 	else if (!ft_strncmp(node->cmd_args[0], "pwd", 4))
-		builtin_pwd(node->cmd_args);
+		builtin_pwd(node);
 	else if (!ft_strncmp(node->cmd_args[0], "unset", 6))
-		builtin_unset(node->cmd_args);
+		builtin_unset(node);
 	else
 		return (0);
 	return (1);

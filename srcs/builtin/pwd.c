@@ -24,6 +24,5 @@ int	builtin_pwd(t_cmd *node)
 	}
 	printf("%s\n", dir);
 	free(dir);
-	//return (EXIT_SUCCESS);
-	exit(EXIT_SUCCESS);
+	return (EXIT_SUCCESS);
 }

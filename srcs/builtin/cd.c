@@ -84,10 +84,10 @@ int	builtin_cd(t_cmd *node)
 	old_pwd_path = getcwd(NULL, 0);
 	if (old_pwd_path == NULL)
 		return (EXIT_FAILURE);
-	if (cmd[1] == NULL)
+	if (node->cmd_args[1] == NULL)
 		status = set_home_path();
 	else
-		status = check_cd(cmd[1]);
+		status = check_cd(node->cmd_args[1]);
 	if (status == 0)
 		status = check_pwd(&old_pwd_path);
 	free(old_pwd_path);

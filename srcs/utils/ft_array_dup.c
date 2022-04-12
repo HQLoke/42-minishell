@@ -6,7 +6,7 @@
 /*   By: hloke <hloke@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 16:53:36 by hloke             #+#    #+#             */
-/*   Updated: 2022/04/08 17:05:43 by hloke            ###   ########.fr       */
+/*   Updated: 2022/04/12 16:18:32 by hloke            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	**ft_array_dup(char **src_array, int num_var)
 	int		i;
 	int		src_size;
 	char	**tmp;
-	
+
 	i = 0;
 	src_size = ft_array_size(src_array);
 	if (num_var < src_size)

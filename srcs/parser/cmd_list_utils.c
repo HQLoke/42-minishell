@@ -6,7 +6,7 @@
 /*   By: hloke <hloke@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 11:28:15 by hloke             #+#    #+#             */
-/*   Updated: 2022/04/11 15:45:39 by hloke            ###   ########.fr       */
+/*   Updated: 2022/04/12 16:17:38 by hloke            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	make_cmd_list(t_list *token_head, t_cmd **command_head, int pipe_count)
 	t_list	*token_tmp;
 	t_cmd	*cmd_tmp;
 	char	**tmp;
-	
+
 	while (pipe_count-- > 0)
 		add_command(command_head);
 	set_cmd_num(command_head);
@@ -70,7 +70,7 @@ void	make_cmd_list(t_list *token_head, t_cmd **command_head, int pipe_count)
 				ft_lstnew(ft_strdup(token_tmp->content), token_tmp->type));
 		else if (token_tmp->type >= command && token_tmp->type <= argument)
 			cmd_tmp->cmd_args = ft_array_add(cmd_tmp->cmd_args,
-				token_tmp->content);
+					token_tmp->content);
 		else if (token_tmp->type == piping)
 			cmd_tmp = cmd_tmp->next;
 		token_tmp = token_tmp->next;

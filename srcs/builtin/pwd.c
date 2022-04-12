@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int	builtin_pwd(t_cmd *node)
+void	builtin_pwd(t_cmd *node)
 {
 	char	*dir;
 
@@ -20,10 +20,14 @@ int	builtin_pwd(t_cmd *node)
 	if (dir == NULL)
 	{
 		cd_error("pwd", NULL, strerror(errno));
-		return (1);
+		return ;
 	}
 	printf("%s\n", dir);
 	free(dir);
-	//return (EXIT_SUCCESS);
-	exit(EXIT_SUCCESS);
+	if (node->cmd_num == -2)
+	{
+		g_environ->exit_status = EXIT_SUCCESS;
+		return ;
+	}
+	exit (EXIT_SUCCESS);
 }

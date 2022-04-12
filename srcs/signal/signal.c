@@ -20,7 +20,7 @@ void	sigquit_handler(void)
 
 static void	signal_handler(int i)
 {
-	pid_t 	pid;
+	pid_t	pid;
 	int		status;
 
 	pid = waitpid(-1, &status, 1);
@@ -28,8 +28,6 @@ static void	signal_handler(int i)
 	{
 		if (pid == -1)
 		{
-			// rl_on_new_line();
-			// rl_redisplay();
 			ft_putstr_fd("\n", 2);
 			rl_on_new_line();
 			rl_replace_line("", 0);

@@ -1,36 +1,61 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute_builtin.c                                  :+:      :+:    :+:   */
+/*   builtin_exec.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktiong <ktiong@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: hloke <hloke@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/22 17:26:35 by ktiong            #+#    #+#             */
-/*   Updated: 2022/03/22 20:16:57 by ktiong           ###   ########.fr       */
+/*   Created: 2022/04/12 11:26:47 by hloke             #+#    #+#             */
+/*   Updated: 2022/04/12 11:26:47 by hloke            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-//* returns 0 if no match is found
-//* else returns 1
-int	execute_builtin(t_cmd *node)
+static int	check_builtin(t_cmd *node)
 {
 	if (!ft_strncmp(node->cmd_args[0], "cd", 3))
-		builtin_cd(node);
+		return (1);
 	else if (!ft_strncmp(node->cmd_args[0], "echo", 5))
-		builtin_echo(node);
+		return (2);
 	else if (!ft_strncmp(node->cmd_args[0], "env", 4))
-		builtin_env(node);
+		return (3);
 	else if (!ft_strncmp(node->cmd_args[0], "exit", 5))
-		builtin_exit(node);
+		return (4);
 	else if (!ft_strncmp(node->cmd_args[0], "export", 7))
-		builtin_export(node);
+		return (5);
 	else if (!ft_strncmp(node->cmd_args[0], "pwd", 4))
-		builtin_pwd(node);
+		return (6);
 	else if (!ft_strncmp(node->cmd_args[0], "unset", 6))
-		builtin_unset(node);
+		return (7);
 	else
+		return (-1);
+}
+
+//* returns 0 if no builtin is used
+//* else returns 1
+int	builtin_exec(t_cmd *node)
+{
+	int	ret;
+
+	ret = check_builtin(node);
+	if (ret == -1)
 		return (0);
+	if (node->cmd_num == -2)
+		single_dup2_close(node);
+	if (ret == 1)
+		builtin_cd(node);
+	else if (ret == 2)
+		builtin_echo(node);
+	else if (ret == 3)
+		builtin_env(node);
+	else if (ret == 4)
+		builtin_exit(node);
+	else if (ret == 5)
+		builtin_export(node);
+	else if (ret == 6)
+		builtin_pwd(node);
+	else if (ret == 7)
+		builtin_unset(node);
 	return (1);
 }

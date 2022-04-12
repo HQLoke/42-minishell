@@ -12,14 +12,9 @@
 
 #include "minishell.h"
 
-void	print_not_valid(char *cmd, char *str)
-{
-	printf("bash: %s: `%s': not a valid identifier\n", cmd, str);
-	return ;
-}
-
-// Check whether the key value to be added is a possible value: Consists of alphabets, numbers, _, not only numbers
-int	check_var_syntax(char *str)
+//* check whether the key value to be added is a possible value: 
+//* consists of alphabets, numbers, _, not only numbers
+static int	check_var_syntax(char *str)
 {
 	if (!ft_isalpha((int)str[0]) && str[0] != '_')
 		return (0);
@@ -36,36 +31,51 @@ int	check_var_syntax(char *str)
 	return (1);
 }
 
-static void    print_export(void)
+static void	print_export(void)
 {
-	int	i;
+	int		i;
+	int		equal;
+	char	*tmp1;
+	char	*tmp2;
 
 	i = 0;
 	while (g_environ->env_var[i])
 	{
+		equal = 0;
+		while (g_environ->env_var[i][equal] != '=')
+			equal += 1;
+		tmp1 = ft_substr(g_environ->env_var[i], 0, equal);
+		tmp2 = ft_substr(g_environ->env_var[i], equal + 1,
+				ft_strlen(g_environ->env_var[i]) - equal - 1);
 		printf("declare -x ");
-
-			printf("=\"%s\"");
-		printf("\n");
+		printf("%s=\"%s\"\n", tmp1, tmp2);
+		free (tmp1);
+		free (tmp2);
 		i += 1;
 	}
 }
 
-int	builtin_export(t_cmd *node)
+void	builtin_export(t_cmd *node)
 {
 	int	i;
 
 	if (ft_array_size(node->cmd_args) < 2)
 		print_export();
-	i = 0;
-	while (node->cmd_args[i])
+	g_environ->exit_status = EXIT_SUCCESS;
+	i = 1;
+	while (node->cmd_args[i] != NULL)
 	{
-		if (!check_var_syntax(node->cmd_args[i]))
+		if (check_var_syntax(node->cmd_args[i]) == -1)
 		{
-			print_not_valid("export", node->cmd_args[i]);
-			return (1);
+			printf("bash: export `%s': not a valid identifier\n",
+				node->cmd_args[i]);
+			g_environ->exit_status = EXIT_FAILURE;
 		}
+		else
+			ft_putenv(node->cmd_args[i]);
 		i += 1;
 	}
-	return (EXIT_SUCCESS);
+	if (node->cmd_num == -2)
+		return ;
+	exit (EXIT_SUCCESS);
 }

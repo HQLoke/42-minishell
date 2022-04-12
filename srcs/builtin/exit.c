@@ -16,29 +16,29 @@
 	Prints exit and error message. 
 	minishell is closed and the exit code and terminates it.
 */
-int	builtin_exit(t_cmd *node)
+void	builtin_exit(t_cmd *node)
 {
 	int	status;
 
-	status = 0;
-	
+	status = ft_array_size(node->cmd_args);
 	if (status == 1)
 	{
 		ft_putendl_fd("exit", 1);
-		exit(EXIT_SUCCESS);
+		exit (EXIT_SUCCESS);
 	}
 	if (status > 2)
 	{
-		ft_putendl_fd("bash: exit: too many arguments", 2);
-		return (1);
+		ft_putendl_fd("exit\nbash: exit: too many arguments", 2);
+		g_environ->exit_status = EXIT_FAILURE;
+		return ;
 	}
-	if (ft_atoi(cmd[1]) == 0)
+	if (ft_atoi(node->cmd_args[1]) == 0)
 	{
-		ft_putstr_fd("bash: exit: ", 2);
-		ft_putstr_fd(cmd[1], 2);
+		ft_putstr_fd("exit\nbash: exit: ", 2);
+		ft_putstr_fd(node->cmd_args[1], 2);
 		ft_putstr_fd(": numeric argument required\n", 2);
-		exit(255);
+		exit (255);
 	}
 	ft_putstr_fd("exit\n", 1);
-	exit(ft_atoi(cmd[1]));
+	exit (ft_atoi(node->cmd_args[1]));
 }

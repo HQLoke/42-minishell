@@ -6,7 +6,7 @@
 /*   By: hloke <hloke@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 15:47:25 by hloke             #+#    #+#             */
-/*   Updated: 2022/04/08 10:08:22 by hloke            ###   ########.fr       */
+/*   Updated: 2022/04/12 16:16:24 by hloke            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,10 @@ void	check_token(t_list **token_head)
 	{
 		check_quote(tmp->content);
 		if (tmp->type == piping && (index == 0 || tmp->next == NULL
-			|| tmp->next->type == piping))
+				|| tmp->next->type == piping))
 			ft_error_exit("😢 syntax error: pipe\n");
-		else if ((tmp->type >= heredoc && tmp->type <= trunc)
-			&& ((tmp->next == NULL) || (tmp->next->type >= heredoc 
+		else if ((tmp->type >= heredoc && tmp->type <= trunc) \
+			&& ((tmp->next == NULL) || (tmp->next->type >= heredoc \
 			&& tmp->next->type <= trunc) || (tmp->next->type == piping)))
 			ft_error_exit("😢 syntax error: redirection\n");
 		index += 1;

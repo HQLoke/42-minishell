@@ -40,7 +40,7 @@ bool	process_flag(const char *cmd, bool *n, bool *status)
 	return (0);
 }
 
-int	builtin_echo(char **cmd)
+void	builtin_echo(t_cmd *node)
 {
 	bool	status;
 	bool	n;
@@ -49,17 +49,22 @@ int	builtin_echo(char **cmd)
 	status = 1;
 	n = 1;
 	i = 1;
-	while (cmd[i] != NULL)
+	while (node->cmd_args[i] != NULL)
 	{
-		if (process_flag(cmd[i], &n, &status) == 0)
+		if (process_flag(node->cmd_args[i], &n, &status) == 0)
 		{
-			printf("%s", cmd[i]);
-			if (cmd[i + 1] != NULL)
+			printf("%s", node->cmd_args[i]);
+			if (node->cmd_args[i + 1] != NULL)
 				printf(" ");
 		}
-		i++;
+		i += 1;
 	}
 	if (n == 1)
 		printf("\n");
-	return (EXIT_SUCCESS);
+	if (node->cmd_num == -2)
+	{
+		g_environ->exit_status = EXIT_SUCCESS;
+		return ;
+	}
+	exit (EXIT_SUCCESS);
 }

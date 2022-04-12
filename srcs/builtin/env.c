@@ -22,4 +22,10 @@ void	builtin_env(t_cmd *node)
 		printf("%s\n", g_environ->env_var[i]);
 		i += 1;
 	}
+	if (node->cmd_num == -2)
+	{
+		g_environ->exit_status = EXIT_SUCCESS;
+		return ;
+	}
+	exit (EXIT_SUCCESS);
 }

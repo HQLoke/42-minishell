@@ -6,7 +6,7 @@
 /*   By: hloke <hloke@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 10:13:45 by hloke             #+#    #+#             */
-/*   Updated: 2022/04/08 11:06:27 by hloke            ###   ########.fr       */
+/*   Updated: 2022/04/12 16:13:44 by hloke            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,7 @@ void	set_token(t_list **token_head)
 		if (tmp->type == heredoc || (tmp->type == input)
 			|| (tmp->type == append) || (tmp->type == trunc))
 		{
-			if (tmp->type == heredoc)
-				set_redirection(tmp, heredoc);
-			else if (tmp->type == input)
-				set_redirection(tmp, input);
-			else if (tmp->type == append)
-				set_redirection(tmp, append);
-			else if (tmp->type == trunc)
-				set_redirection(tmp, trunc);
+			set_redirection(tmp, tmp->type);
 			tmp = tmp->next->next;
 			continue ;
 		}

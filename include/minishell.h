@@ -54,30 +54,28 @@ typedef struct s_cmd
 
 //* /srcs/builtin
 void	cd_error(char *s1, char *s2, char *s3);
-int		builtin_cd(t_cmd *node);
-int		builtin_echo(t_cmd *node);
+void	builtin_cd(t_cmd *node);
+void	builtin_echo(t_cmd *node);
 void	builtin_env(t_cmd *node);
-int		builtin_exit(t_cmd *node);
-int		builtin_export(t_cmd *node);
-int		builtin_pwd(t_cmd *node);
-int		builtin_unset(t_cmd *node);
-int		check_var_syntax(char *str);
-void	print_not_valid(char *cmd, char *str);
+void	builtin_exit(t_cmd *node);
+void	builtin_export(t_cmd *node);
+void	builtin_pwd(t_cmd *node);
+void	builtin_unset(t_cmd *node);
 
 //* /srcs/env
-void	environ_deinit(void);
 void	environ_init(char **envp);
 int		ft_delenv(char *env_key);
 char	*ft_getenv(char *env_key);
 int		ft_putenv(char *env_var);
 
 //* /srcs/executor
+int		builtin_exec(t_cmd *node);
 void	child_dup2_close(t_cmd *node, int fd[2], int last_fd);
-int		execute_builtin(t_cmd *node);
 void	mini_executor(t_cmd *command_head);
 void	parent_close(int fd[2], int *last_fd, int cmd);
 int		redirect_input(t_list *redirect);
 int		redirect_output(t_list *redirect);
+void	single_dup2_close(t_cmd *node);
 void	wait_exit_status(void);
 
 //* /srcs/lexer

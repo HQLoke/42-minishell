@@ -22,9 +22,9 @@ int	main(int argc, char **argv, char **envp)
 	command_head = NULL;
 	environ_init(envp);
 	ft_signal();
-    while (true)
-    {
-        input = readline("мιηιѕнєℓℓ (づ｡◕‿‿◕｡)づ ");
+	while (true)
+	{
+		input = readline("мιηιѕнєℓℓ (づ｡◕‿‿◕｡)づ ");
 		if (input == NULL)
 			sigquit_handler();
 		add_history(input);
@@ -34,6 +34,6 @@ int	main(int argc, char **argv, char **envp)
 		ft_lstclear(&token_head, free);
 		unmake_cmd_list(&command_head);
 		free(input);
-    }
+	}
 	return (0);
 }

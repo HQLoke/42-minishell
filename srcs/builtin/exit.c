@@ -75,7 +75,6 @@ int	builtin_exit(t_cmd *node)
 			
 		else
 		{
-			error_numeric_argument(node->cmd_args[1]);
 			ft_putstr_fd("bash: exit: ", 2);
 			ft_putstr_fd(node->cmd_args[1], 2);
 			ft_putstr_fd(": numeric argument required\n", 2);

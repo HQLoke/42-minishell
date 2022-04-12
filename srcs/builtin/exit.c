@@ -82,7 +82,7 @@ int	builtin_exit(t_cmd *node)
 		}
 	}
 	ft_putstr_fd("bash: exit: ", 2);
-	ft_putstr_fd(status, 2);
+	ft_putnbr_fd(status, 2);
 	ft_putstr_fd("\n", 2);
 	return(status);
 }

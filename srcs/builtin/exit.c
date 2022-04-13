@@ -16,73 +16,74 @@
 	Prints exit and error message. 
 	minishell is closed and the exit code and terminates it.
 */
-static int	check_int_max(int sign, char *arg, long long n)
-{
-	int len;
 
-    len = ft_isdigit(arg[1]);
-    if (len == 0)
-		return (0);
-    n *= sign;
-	if (n > LONG_MAX / 10 || (n == LONG_MAX / 10 && arg[1] > '7'))
-        return (1);
-    else if (n < LONG_MIN / 10 || (n == LONG_MIN / 10 && arg[1] > '8'))
-        return (1);
+static int	check_int_max(char	*arg)
+{
+	long long	n;
+	int			i;
+	int			sign;
+
+	i = 0;
+	n = 0;
+	sign = 1;
+	while (arg[i] == ' ' || (arg[i] >= 9 && arg[i] <= 13))
+		i++;
+	if (arg[i] == '+' || arg[i] == '-')
+	{
+		if (arg[i] == '-')
+			sign = -1;
+		i++;
+	}
+	while (arg[i] >= '0' && arg[i] <= '9')
+	{
+		n = n * 10 + arg[i] - '0';
+		if (n > INT_MAX || n * sign < INT_MIN)
+			return (1);
+		i++;
+	}
 	return (0);
 }
 
-static int	atoi_exit(char *arg)
+int	atoi_exit(char *arg)
 {
-	int			sign;
-	long long	i;
+	int	i;
 
-	sign = 1;
 	i = 0;
-	while ((*arg >= '\t' && *arg <= '\r') || *arg == ' ')
-		arg++;
-	if (*arg == '-')
-	{
-		sign *= -1;
-		arg++;
-	}
-	else if (*arg == '+')
-		arg++;
-	while (*arg && ft_isdigit(*arg))
-	{
-        if (i)
-			i *= 10;
-		i += *arg - '0';
-		if (check_int_max(sign, arg, i) == 1)
-			return (0);
-		arg++;
-	}
-	if (*arg != '\0')
+	while (arg[i] == ' ')
+		i++;
+	if ((arg[i] == '-' || arg[i] == '+') && !ft_isdigit(arg[++i]))
 		return (0);
-    return (1);
+	while (arg[i] && ft_isdigit(arg[i]))
+		i++;
+	while (arg[i] == ' ')
+		i++;
+	if (!arg[i])
+		return (1);
+	return (0);
 }
 
 void	builtin_exit(t_cmd *node)
 {
-	unsigned char	status;
-	
+	int	status;
+
 	status = 0;
-	if (node->cmd_args[1])
+	ft_putstr_fd("exit\n", 2);
+	if (ft_array_size(node->cmd_args) > 2)
 	{
-		if (atoi_exit(node->cmd_args[1]))
-		{
-			status = ft_atoi(node->cmd_args[1]);
-		}
-			
-		else
-		{
-			ft_putstr_fd("bash: exit: ", 2);
-			ft_putstr_fd(node->cmd_args[1], 2);
-			ft_putstr_fd(": numeric argument required\n", 2);
-			status = 255;
-		}
+		printf("%s: exit: too many arguments\n", node->cmd_args[1]);
+		g_environ->exit_status = 1;
+		return ;
 	}
-	ft_putstr_fd("bash: exit: ", 2);
-	ft_putnbr_fd(status, 2);
-	ft_putstr_fd("\n", 2);
+	else if (node->cmd_args[1] && (!atoi_exit(node->cmd_args[1])
+			|| check_int_max(node->cmd_args[1])))
+	{
+		printf("%s: exit: numeric argument required\n", node->cmd_args[1]);
+		status = 255;
+	}
+	else if (node->cmd_args[1])
+		status = ft_atoi(node->cmd_args[1]) % 256;
+	if (status == -1)
+		status = 255;
+	printf("%d: exit: \n", status);
 	exit(status);
 }

@@ -114,6 +114,8 @@ char	**ft_array_add(char **src_array, char *str);
 char	**ft_array_dup(char **src_array, int num_var);
 size_t	ft_array_size(char **array);
 void	ft_error_exit(char *error_msg);
+void	cmd_not_found(char *error_msg);
+void	error(char *message, char *cmd, char *arg, int status);
 void	ft_memdel(void **ptr);
 void	ft_split_custom(t_list **head, const char *input, char delim);
 #endif

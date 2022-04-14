@@ -84,6 +84,5 @@ void	builtin_exit(t_cmd *node)
 		status = ft_atoi(node->cmd_args[1]) % 256;
 	if (status == -1)
 		status = 255;
-	printf("%d: exit: \n", status);
 	exit(status);
 }

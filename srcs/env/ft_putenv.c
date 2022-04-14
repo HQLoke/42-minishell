@@ -6,7 +6,7 @@
 /*   By: hloke <hloke@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 14:48:09 by hloke             #+#    #+#             */
-/*   Updated: 2022/04/10 10:27:00 by hloke            ###   ########.fr       */
+/*   Updated: 2022/04/14 10:41:19 by hloke            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ static int	equal_index(char *env_var)
 	index = 0;
 	while (env_var[index] != '=' && env_var[index] != '\0')
 		index += 1;
-	if (env_var[index] == '\0')
-		ft_putstr_fd("warning: no equal sign found\n", STDERR_FILENO);
 	return (index);
 }
 

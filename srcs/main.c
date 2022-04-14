@@ -17,10 +17,9 @@ int	main(int argc, char **argv, char **envp)
 	char		*input;
 	t_list		*token_head;
 	t_cmd		*command_head;
+	bool		lexer_ok;
 
-	token_head = NULL;
-	command_head = NULL;
-	environ_init(envp);
+	mini_init(&token_head, &command_head, envp);
 	ft_signal();
 	while (true)
 	{
@@ -28,9 +27,12 @@ int	main(int argc, char **argv, char **envp)
 		if (input == NULL)
 			sigquit_handler();
 		add_history(input);
-		mini_lexer(input, &token_head);
-		mini_parser(token_head, &command_head);
-		mini_executor(command_head);
+		lexer_ok = mini_lexer(input, &token_head);
+		if (lexer_ok == true)
+		{
+			mini_parser(token_head, &command_head);
+			mini_executor(command_head);
+		}
 		ft_lstclear(&token_head, free);
 		unmake_cmd_list(&command_head);
 		free(input);

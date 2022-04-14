@@ -22,7 +22,7 @@ SIGNAL_DIR		= srcs/signal/
 STANDARD_DIR  	= srcs/standard/
 UTILS_DIR     	= srcs/utils/
 SRCS = $(addprefix $(BUILTIN_DIR), cd.c echo.c env.c exit.c export.c pwd.c unset.c)  				\
-	   $(addprefix $(ENV_DIR), environ_init.c ft_delenv.c ft_getenv.c ft_putenv.c) 					\
+	   $(addprefix $(ENV_DIR), ft_delenv.c ft_getenv.c ft_putenv.c) 								\
 	   $(addprefix $(EXECUTOR_DIR), builtin_exec.c dup2_close.c mini_executor.c 		    		\
 	   								redirect_input.c redirect_output.c wait_exit_status.c)			\
 	   $(addprefix $(LEXER_DIR), assign_token.c check_token.c set_token.c mini_lexer.c)				\
@@ -31,8 +31,8 @@ SRCS = $(addprefix $(BUILTIN_DIR), cd.c echo.c env.c exit.c export.c pwd.c unset
 	   $(addprefix $(SIGNAL_DIR), signal.c)							  								\
 	   $(addprefix $(STANDARD_DIR), ft_access.c ft_close.c ft_dup2.c ft_execve.c ft_fork.c   		\
 	   								ft_free.c ft_open.c ft_pipe.c ft_unlink.c ft_waitpid.c) 		\
-	   $(addprefix $(UTILS_DIR), ft_array_add.c ft_array_dup.c ft_array_size.c ft_error_exit.c 		\
-	   						     ft_memdel.c ft_split_custom.c)
+	   $(addprefix $(UTILS_DIR), ft_array_add.c ft_array_dup.c ft_array_size.c ft_memdel.c 			\
+	   							 ft_split_custom.c mini_deinit.c mini_init.c)
 OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)

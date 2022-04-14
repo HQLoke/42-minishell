@@ -42,6 +42,8 @@ int	builtin_exec(t_cmd *node)
 	if (ret == -1)
 		return (0);
 	g_environ->exit_status = EXIT_SUCCESS;
+	if (node->cmd_num == -2)
+		node->out_fd = redirect_output(node->redirect);
 	if (ret == 1)
 		builtin_cd(node);
 	else if (ret == 2)
@@ -56,5 +58,7 @@ int	builtin_exec(t_cmd *node)
 		builtin_pwd(node);
 	else if (ret == 7)
 		builtin_unset(node);
+	if (node->cmd_num == -2 && node->out_fd != STDOUT_FILENO)
+		ft_close (node->out_fd);
 	return (1);
 }

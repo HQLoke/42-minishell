@@ -22,12 +22,12 @@ int	redirect_output(t_list *redirect)
 	int		output_fd;
 
 	tmp = redirect;
-	output_fd = -1;
+	output_fd = STDOUT_FILENO;
 	while (tmp)
 	{
 		if (tmp->type == append || tmp->type == trunc)
 		{
-			if (output_fd != -1)
+			if (output_fd != STDOUT_FILENO)
 				ft_close(output_fd);
 			if (tmp->type == append)
 				output_fd = ft_open(tmp->content, O_CREAT | O_WRONLY

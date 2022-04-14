@@ -19,7 +19,7 @@ void	builtin_pwd(t_cmd *node)
 	dir = getcwd(NULL, 0);
 	if (dir == NULL)
 	{
-		cd_error("pwd", NULL, strerror(errno));
+		printf("cd: %s\n", strerror(errno));
 		return ;
 	}
 	printf("%s\n", dir);

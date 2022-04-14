@@ -44,16 +44,15 @@ typedef struct s_environ
 
 typedef struct s_cmd
 {
-	int		cmd_num;
-	int		in_fd;
-	int		out_fd;
-	t_list	*redirect;
-	char	**cmd_args;
-	struct s_cmd *next;
+	int				cmd_num;
+	int				in_fd;
+	int				out_fd;
+	t_list			*redirect;
+	char			**cmd_args;
+	struct s_cmd	*next;
 }	t_cmd;
 
 //* /srcs/builtin
-void	cd_error(char *s1, char *s2, char *s3);
 void	builtin_cd(t_cmd *node);
 void	builtin_echo(t_cmd *node);
 void	builtin_env(t_cmd *node);
@@ -115,7 +114,6 @@ char	**ft_array_dup(char **src_array, int num_var);
 size_t	ft_array_size(char **array);
 void	ft_error_exit(char *error_msg);
 void	cmd_not_found(char *error_msg);
-void	error(char *message, char *cmd, char *arg, int status);
 void	ft_memdel(void **ptr);
 void	ft_split_custom(t_list **head, const char *input, char delim);
 #endif

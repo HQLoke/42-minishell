@@ -62,7 +62,6 @@ void	builtin_pwd(t_cmd *node);
 void	builtin_unset(t_cmd *node);
 
 //* /srcs/env
-void	environ_init(char **envp);
 int		ft_delenv(char *env_key);
 char	*ft_getenv(char *env_key);
 int		ft_putenv(char *env_var);
@@ -79,9 +78,9 @@ void	wait_exit_status(void);
 
 //* /srcs/lexer
 void	assign_token(t_list **token_head);
-void	check_token(t_list **token_head);
+void	check_token(t_list **token_head, bool *lexer_ok);
 void	set_token(t_list **token_head);
-void	mini_lexer(char *input, t_list **token_head);
+int		mini_lexer(char *input, t_list **token_head);
 
 //* /srcs/parser
 void	expand_cmd(t_list *node);
@@ -112,8 +111,8 @@ pid_t	ft_waitpid(pid_t pid, int *wstatus, int options);
 char	**ft_array_add(char **src_array, char *str);
 char	**ft_array_dup(char **src_array, int num_var);
 size_t	ft_array_size(char **array);
-void	ft_error_exit(char *error_msg);
-void	cmd_not_found(char *error_msg);
 void	ft_memdel(void **ptr);
 void	ft_split_custom(t_list **head, const char *input, char delim);
+void	mini_deinit(void);
+void	mini_init(t_list **token_head, t_cmd **command_head, char **envp);
 #endif

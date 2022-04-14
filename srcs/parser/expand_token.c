@@ -18,7 +18,7 @@ static int	replace_dollar(t_list *node, t_list *exp_tmp, int i)
 	char	*tmp2;
 	char	*tmp3;
 
-	if (exp_tmp->type == 0)
+	if (exp_tmp->type == 0 || exp_tmp->type == 2)
 		return (1);
 	if (exp_tmp->type == 1 && exp_tmp->content == NULL)
 	{

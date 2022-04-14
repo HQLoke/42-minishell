@@ -6,13 +6,19 @@
 /*   By: ktiong <ktiong@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 15:47:25 by hloke             #+#    #+#             */
-/*   Updated: 2022/04/13 19:23:04 by ktiong           ###   ########.fr       */
+/*   Updated: 2022/04/14 14:19:23 by ktiong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	check_quote(char *content)
+static void	set_lexer_ok(char *error_msg, bool *lexer_ok)
+{
+	ft_putstr_fd(error_msg, 2);
+	*lexer_ok = false;
+}
+
+static void	check_quote(char *content, bool *lexer_ok)
 {
 	int	i;
 
@@ -24,7 +30,7 @@ static void	check_quote(char *content)
 			while (content[i] != *content && content[i])
 				i += 1;
 			if (content[i] == '\0')
-				ft_error_exit("😢 syntax error: unclosed quotes\n");
+				set_lexer_ok("😢 syntax error: unclosed quotes\n", lexer_ok);
 			content += (i + 1);
 		}
 		else
@@ -35,7 +41,7 @@ static void	check_quote(char *content)
 //* Check if have open-ended quotes
 //* Check if pipe is first/last/consecutive
 //* Check if redirection is last/consecutive/followed by pipe
-void	check_token(t_list **token_head)
+void	check_token(t_list **token_head, bool *lexer_ok)
 {
 	t_list	*tmp;
 	int		index;
@@ -44,14 +50,14 @@ void	check_token(t_list **token_head)
 	index = 0;
 	while (tmp)
 	{
-		check_quote(tmp->content);
+		check_quote(tmp->content, lexer_ok);
 		if (tmp->type == piping && (index == 0 || tmp->next == NULL
 				|| tmp->next->type == piping))
-			ft_error_exit("😢 syntax error: pipe\n");
+			set_lexer_ok("😢 syntax error: pipe\n", lexer_ok);
 		else if ((tmp->type >= heredoc && tmp->type <= trunc) \
 			&& ((tmp->next == NULL) || (tmp->next->type >= heredoc \
 			&& tmp->next->type <= trunc) || (tmp->next->type == piping)))
-			ft_error_exit("😢 syntax error: redirection\n");
+			set_lexer_ok("😢 syntax error: redirection\n", lexer_ok);
 		index += 1;
 		tmp = tmp->next;
 	}	

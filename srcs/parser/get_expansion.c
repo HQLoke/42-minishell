@@ -6,7 +6,7 @@
 /*   By: hloke <hloke@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 20:06:00 by hloke             #+#    #+#             */
-/*   Updated: 2022/04/12 16:46:44 by hloke            ###   ########.fr       */
+/*   Updated: 2022/04/14 11:32:37 by hloke            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ static int	special_char_len(char *str, int i)
 	return (len);
 }
 
+//* Type == 2 is a special case for echo $ only. It will output the string $.
 static	void	add_expand(char *content, t_list **expansion, int expand, int i)
 {
 	int		len;
@@ -36,6 +37,8 @@ static	void	add_expand(char *content, t_list **expansion, int expand, int i)
 	char	*env_value;
 
 	len = special_char_len(content, i);
+	if (len == 0)
+		ft_lstadd_back(expansion, ft_lstnew(NULL, 2));
 	tmp = ft_substr(content, i + 1, len);
 	if (ft_strncmp(tmp, "?", 2) == 0)
 		env_value = ft_itoa(g_environ->exit_status);

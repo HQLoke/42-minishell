@@ -37,5 +37,7 @@ void	ft_execve(char **cmd_args)
 		}
 	}
 	ft_memdel((void **)path);
-	cmd_not_found(cmd_args[0]);
+	ft_putstr_fd(cmd_args[0], 2);
+	ft_putstr_fd(": command not found\n", 2);
+	exit (EXIT_FAILURE);
 }

@@ -41,8 +41,7 @@ int	builtin_exec(t_cmd *node)
 	ret = check_builtin(node);
 	if (ret == -1)
 		return (0);
-	if (node->cmd_num == -2)
-		single_dup2_close(node);
+	g_environ->exit_status = EXIT_SUCCESS;
 	if (ret == 1)
 		builtin_cd(node);
 	else if (ret == 2)

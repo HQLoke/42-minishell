@@ -61,7 +61,6 @@ void	builtin_export(t_cmd *node)
 
 	if (ft_array_size(node->cmd_args) < 2)
 		print_export();
-	g_environ->exit_status = EXIT_SUCCESS;
 	i = 1;
 	while (node->cmd_args[i] != NULL)
 	{

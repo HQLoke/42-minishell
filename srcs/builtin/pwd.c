@@ -25,9 +25,6 @@ void	builtin_pwd(t_cmd *node)
 	printf("%s\n", dir);
 	free(dir);
 	if (node->cmd_num == -2)
-	{
-		g_environ->exit_status = EXIT_SUCCESS;
 		return ;
-	}
 	exit (EXIT_SUCCESS);
 }

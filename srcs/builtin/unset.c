@@ -33,7 +33,6 @@ void	builtin_unset(t_cmd *node)
 {
 	int		i;
 
-	g_environ->exit_status = EXIT_SUCCESS;
 	i = 1;
 	while (node->cmd_args[i] != NULL)
 	{

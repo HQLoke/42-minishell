@@ -6,7 +6,7 @@
 /*   By: hloke <hloke@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 09:47:48 by hloke             #+#    #+#             */
-/*   Updated: 2022/04/14 11:55:01 by hloke            ###   ########.fr       */
+/*   Updated: 2022/04/14 11:59:01 by hloke            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ static int	token_redirect(t_list **token_head, char *input)
 int	mini_lexer(char *input, t_list **token_head)
 {
 	bool	lexer_ok;
-	
+
 	lexer_ok = true;
 	while (*input)
 	{

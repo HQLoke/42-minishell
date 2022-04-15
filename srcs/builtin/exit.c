@@ -28,7 +28,7 @@ void	builtin_exit(t_cmd *node)
 	}
 	if (status > 2)
 	{
-		ft_putendl_fd("exit\nbash: exit: too many arguments", 2);
+		ft_putendl_fd("exit\nbash: exit: too many arguments", STDERR_FILENO);
 		g_environ->exit_status = EXIT_FAILURE;
 		return ;
 	}
@@ -36,7 +36,7 @@ void	builtin_exit(t_cmd *node)
 	{
 		ft_putstr_fd("exit\nbash: exit: ", 2);
 		ft_putstr_fd(node->cmd_args[1], 2);
-		ft_putstr_fd(": numeric argument required\n", 2);
+		ft_putstr_fd(": numeric argument required\n", STDERR_FILENO);
 		exit (255);
 	}
 	ft_putstr_fd("exit\n", 1);

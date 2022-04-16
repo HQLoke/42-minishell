@@ -70,15 +70,17 @@ void	builtin_exit(t_cmd *node)
 	ft_putstr_fd("exit\n", 2);
 	if (ft_array_size(node->cmd_args) > 2)
 	{
-		printf("%s: exit: too many arguments\n", node->cmd_args[1]);
-		g_environ->exit_status = 1;
+		ft_putendl_fd("exit\nbash: exit: too many arguments", STDERR_FILENO);
+		g_environ->exit_status = EXIT_FAILURE;
 		return ;
 	}
 	else if (node->cmd_args[1] && (!atoi_exit(node->cmd_args[1])
 			|| check_int_max(node->cmd_args[1])))
 	{
-		printf("%s: exit: numeric argument required\n", node->cmd_args[1]);
-		status = 255;
+		ft_putstr_fd("exit\nbash: exit: ", 2);
+		ft_putstr_fd(node->cmd_args[1], 2);
+		ft_putstr_fd(": numeric argument required\n", STDERR_FILENO);
+		exit (255);
 	}
 	else if (node->cmd_args[1])
 		status = ft_atoi(node->cmd_args[1]) % 256;

@@ -32,17 +32,8 @@ static int	check_builtin(t_cmd *node)
 		return (-1);
 }
 
-//* returns 0 if no builtin is used
-//* else returns 1
-int	builtin_exec(t_cmd *node)
+static void	choose_builtin(t_cmd *node, int ret)
 {
-	int	ret;
-
-	ret = check_builtin(node);
-	if (ret == -1)
-		return (0);
-	if (node->cmd_num == -2)
-		single_dup2_close(node);
 	if (ret == 1)
 		builtin_cd(node);
 	else if (ret == 2)
@@ -57,5 +48,24 @@ int	builtin_exec(t_cmd *node)
 		builtin_pwd(node);
 	else if (ret == 7)
 		builtin_unset(node);
+}
+
+//* returns 0 if no builtin is used
+//* else returns 1
+int	builtin_exec(t_cmd *node)
+{
+	int	ret;
+
+	ret = check_builtin(node);
+	if (ret == -1)
+		return (0);
+	g_environ->exit_status = EXIT_SUCCESS;
+	if (node->cmd_num == -2)
+		node->out_fd = redirect_output(node->redirect);
+	else
+		node->out_fd = STDOUT_FILENO;
+	choose_builtin(node, ret);
+	if (node->cmd_num == -2 && node->out_fd != STDOUT_FILENO)
+		ft_close (node->out_fd);
 	return (1);
 }

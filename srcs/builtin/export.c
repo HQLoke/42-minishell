@@ -61,15 +61,15 @@ void	builtin_export(t_cmd *node)
 
 	if (ft_array_size(node->cmd_args) < 2)
 		print_export();
-	g_environ->exit_status = EXIT_SUCCESS;
 	i = 1;
 	while (node->cmd_args[i] != NULL)
 	{
 		if (check_var_syntax(node->cmd_args[i]) == -1)
 		{
-			printf("bash: export `%s': not a valid identifier\n",
-				node->cmd_args[i]);
 			g_environ->exit_status = EXIT_FAILURE;
+			ft_putstr_fd("bash: export '", STDERR_FILENO);
+			ft_putstr_fd(node->cmd_args[i], STDERR_FILENO);
+			ft_putstr_fd("': not a valid identifier\n", STDERR_FILENO);
 		}
 		else
 			ft_putenv(node->cmd_args[i]);

@@ -59,6 +59,8 @@ static void	execute_multiple(t_cmd *command_head)
 //* If N == 1, cmd_num = -2 means first & last, or one and only process
 void	mini_executor(t_cmd *command_head)
 {
+	if (command_head->cmd_args == NULL)
+		return ;
 	if (command_head->cmd_num == -2)
 		execute_single(command_head);
 	else

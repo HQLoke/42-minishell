@@ -6,7 +6,7 @@
 /*   By: hloke <hloke@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 10:29:49 by hloke             #+#    #+#             */
-/*   Updated: 2022/04/12 16:08:56 by hloke            ###   ########.fr       */
+/*   Updated: 2022/04/15 08:51:34 by hloke            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	single_dup2_close(t_cmd *node)
 		ft_dup2(node->in_fd, STDIN_FILENO);
 		ft_close(node->in_fd);
 	}
-	if (node->out_fd != -1)
+	if (node->out_fd != STDOUT_FILENO)
 	{
 		ft_dup2(node->out_fd, STDOUT_FILENO);
 		ft_close(node->out_fd);
@@ -48,7 +48,7 @@ static void	child_dup2_close_continue(t_cmd *node, int fd[2], int last_fd)
 			ft_close(last_fd);
 		}
 	}
-	if (node->cmd_num == -1 && node->out_fd != -1)
+	if (node->cmd_num == -1 && node->out_fd != STDOUT_FILENO)
 	{
 		ft_dup2(node->out_fd, STDOUT_FILENO);
 		ft_close(node->out_fd);
@@ -69,7 +69,7 @@ void	child_dup2_close(t_cmd *node, int fd[2], int last_fd)
 	}
 	if (node->cmd_num >= 0)
 	{
-		if (node->out_fd != -1)
+		if (node->out_fd != STDOUT_FILENO)
 		{
 			ft_dup2(node->out_fd, STDOUT_FILENO);
 			ft_close(node->out_fd);

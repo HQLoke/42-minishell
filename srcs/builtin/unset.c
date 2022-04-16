@@ -33,15 +33,15 @@ void	builtin_unset(t_cmd *node)
 {
 	int		i;
 
-	g_environ->exit_status = EXIT_SUCCESS;
 	i = 1;
 	while (node->cmd_args[i] != NULL)
 	{
 		if (check_var_syntax(node->cmd_args[i]) == -1)
 		{
-			printf("bash: unset `%s': not a valid identifier\n",
-				node->cmd_args[i]);
 			g_environ->exit_status = EXIT_FAILURE;
+			ft_putstr_fd("bash: unset '", STDERR_FILENO);
+			ft_putstr_fd(node->cmd_args[i], STDERR_FILENO);
+			ft_putstr_fd("': not a valid identifier\n", STDERR_FILENO);
 		}
 		else
 			ft_delenv(node->cmd_args[i]);

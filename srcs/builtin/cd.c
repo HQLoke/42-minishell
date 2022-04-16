@@ -86,9 +86,6 @@ void	builtin_cd(t_cmd *node)
 		status = check_pwd(&old_pwd_path);
 	free(old_pwd_path);
 	if (node->cmd_num == -2)
-	{
-		g_environ->exit_status = EXIT_SUCCESS;
 		return ;
-	}
 	exit (EXIT_SUCCESS);
 }

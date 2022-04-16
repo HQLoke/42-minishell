@@ -12,12 +12,30 @@
 
 #include "minishell.h"
 
+//* returns 0 if NULL string or wrong option
+//* else returns 1
+static int	check_option(char *cmd)
+{
+	int	i;
+
+	if (cmd == NULL)
+		return (0);
+	if (cmd[0] != '-')
+		return (0);
+	i = 1;
+	while (cmd[i] == 'n')
+		i += 1;
+	if (cmd[i] == '\0')
+		return (1);
+	return (0);
+}
+
 void	builtin_echo(t_cmd *node)
 {
 	int		i;
 
 	i = 1;
-	if (node->cmd_args[1] && ft_strncmp(node->cmd_args[1], "-n", 3) == 0)
+	if (check_option(node->cmd_args[1]) == 1)
 		i = 2;
 	while (node->cmd_args[i] != NULL)
 	{
@@ -32,7 +50,7 @@ void	builtin_echo(t_cmd *node)
 			ft_putstr_fd(" ", node->out_fd);
 		i += 1;
 	}
-	if (node->cmd_args[1] && ft_strncmp(node->cmd_args[1], "-n", 3) != 0)
+	if (check_option(node->cmd_args[1]) != 1)
 		ft_putstr_fd("\n", node->out_fd);
 	if (node->cmd_num == -2)
 		return ;

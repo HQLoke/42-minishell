@@ -36,33 +36,20 @@ static int	check_pwd(char **cmd)
 	return (0);
 }
 
-int	check_cd(char *current_path)
+static char	*ft_getcwd(t_cmd *node)
 {
-	int		i;
+	char	*cwd;
 
-	i = chdir(current_path);
-	if (i < 0)
+	cwd = getcwd(NULL, 0);
+	if (cwd == NULL)
 	{
-		printf("cd: %s: %s\n", current_path, strerror(errno));
-		return (1);
+		g_environ->exit_status = EXIT_FAILURE;
+		ft_putstr_fd("error: ft_getcwd\n", STDERR_FILENO);
+		if (node->cmd_num == -2)
+			return (NULL);
+		exit (EXIT_FAILURE);
 	}
-	return (0);
-}
-
-int	set_home_path(void)
-{
-	char	*path;
-	int		i;
-
-	i = 0;
-	path = getenv("HOME");
-	i = chdir(path);
-	if (i < 0)
-	{
-		printf("cd: HOME not set\n");
-		return (1);
-	}
-	return (0);
+	return (cwd);
 }
 
 /*
@@ -70,21 +57,38 @@ int	set_home_path(void)
 */
 void	builtin_cd(t_cmd *node)
 {
-	int		status;
-	char	*old_pwd_path;
+	char	*pwd;
+	char	*oldpwd;
+	int		ret;
 
-	old_pwd_path = getcwd(NULL, 0);
-	if (ft_array_size(node->cmd_args) > 2)
-		printf("cd: too many arguments\n");
-	if (old_pwd_path == NULL)
-		return ;
-	if (node->cmd_args[1] == NULL)
-		status = set_home_path();
-	if (ft_array_size(node->cmd_args) == 2)
-		status = check_cd(node->cmd_args[1]);
-	if (status == 0)
-		status = check_pwd(&old_pwd_path);
-	free(old_pwd_path);
+	if (node->cmd_args[1] == NULL || ft_strncmp(node->cmd_args[1], "~", 2) == 0)
+		pwd = ft_getenv("HOME");
+	else if (ft_strncmp(node->cmd_args[1], "-", 2) == 0)
+		pwd = ft_getenv("OLDPWD");
+	else
+		pwd = ft_getcwd(node);
+	oldpwd = ft_getcwd(node);
+	if (oldpwd == NULL)
+	{
+		g_environ->exit_status = EXIT_FAILURE;
+		if (node->cmd_num == -2)
+			return;
+		exit (EXIT_FAILURE);
+	}
+	ret = chdir(node->cmd_args[1]);
+	if (ret == -1)
+	{
+		free (oldpwd);
+		ft_putstr_fd("bash: cd: ", STDERR_FILENO);
+		ft_putstr_fd(node->cmd_args[1], STDERR_FILENO);
+		ft_putstr_fd(": No such file or directory\n", STDERR_FILENO);
+		g_environ->exit_status = EXIT_FAILURE;
+		if (node->cmd_num == -2)
+			return (EXIT_FAILURE);
+		exit (EXIT_FAILURE);
+	}
+	pwd = 
+
 	if (node->cmd_num == -2)
 		return ;
 	exit (EXIT_SUCCESS);

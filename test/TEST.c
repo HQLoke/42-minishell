@@ -7,11 +7,11 @@
 
 int main(int argc, char **argv, char **envp)
 {	
-	char	*dir;
-
-	dir = getcwd(NULL, 0);
-	
-	printf("%s\n", dir);
+	if (argc == 2)
+	{
+		if (argv[1] == "~")
+			printf("AHA!\n");
+	}
 
 	return (0);
 }

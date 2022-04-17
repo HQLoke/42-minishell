@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_lexer.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktiong <ktiong@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: hloke <hloke@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 09:47:48 by hloke             #+#    #+#             */
-/*   Updated: 2022/04/14 14:19:16 by ktiong           ###   ########.fr       */
+/*   Updated: 2022/04/17 20:38:18 by hloke            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,8 @@ int	mini_lexer(char *input, t_list **token_head)
 	}
 	assign_token(token_head);
 	check_token(token_head, &lexer_ok);
+	if (lexer_ok == false)
+		return (lexer_ok);
 	set_token(token_head);
 	return (lexer_ok);
 }

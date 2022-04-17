@@ -20,7 +20,7 @@ static int	input_heredoc(const char *limit)
 	char	*line;
 	int		tmp_fd;
 
-	tmp_filename = ".heredoc_tmp";
+	tmp_filename = "./srcs/executor/.heredoc_tmp";
 	tmp_fd = ft_open(tmp_filename, O_CREAT | O_WRONLY | O_TRUNC, 0666);
 	while (1)
 	{

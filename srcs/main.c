@@ -24,7 +24,7 @@ int	main(int argc, char **argv, char **envp)
 	ft_signal();
 	while (true)
 	{
-		input = readline("мιηιѕнєℓℓ (づ｡◕‿‿◕｡)づ ");
+		input = readline("мιηιѕнєℓℓ>> ");
 		if (input == NULL)
 			sigquit_handler();
 		add_history(input);
@@ -37,5 +37,5 @@ int	main(int argc, char **argv, char **envp)
 		unmake_cmd_list(&command_head);
 		free(input);
 	}
-	return (0);
+	return (g_environ->exit_status);
 }

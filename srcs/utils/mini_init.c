@@ -6,7 +6,7 @@
 /*   By: hloke <hloke@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 14:06:07 by hloke             #+#    #+#             */
-/*   Updated: 2022/04/14 11:14:03 by hloke            ###   ########.fr       */
+/*   Updated: 2022/04/17 15:12:03 by hloke            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ static void	welcome_msg(void)
 	printf(GRN"| __|/ _ \\  | '_ ` _ \\ | || '_ \\ | |/ __|| '_ \\  / _ \\| || |\n");
 	printf(BLU"| |_| (_) | | | | | | || || | | || |\\__ \\| | | ||  __/| || |\n");
 	printf(MAG" \\__|\\___/  |_| |_| |_||_||_| |_||_||___/|_| |_| \\___||_||_|\n");
+	printf("Team members: Kimberly Tiong (ktiong) & Han Qin Loke (hloke)\n");
 	printf(BHCYN);
 }
 

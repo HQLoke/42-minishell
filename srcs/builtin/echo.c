@@ -30,24 +30,26 @@ static int	check_option(char *cmd)
 	return (0);
 }
 
+//* prints out all arguments
+//* first is to check space between arguments
 void	builtin_echo(t_cmd *node)
 {
 	int		i;
+	bool	first;
 
 	i = 1;
+	first = true;
 	if (check_option(node->cmd_args[1]) == 1)
 		i = 2;
 	while (node->cmd_args[i] != NULL)
 	{
-		if (ft_strlen(node->cmd_args[i]) == 0)
+		if (ft_strlen(node->cmd_args[i]) != 0)
 		{
-			i += 1;
-			continue ;
+			if (first == false)
+				ft_putstr_fd(" ", node->out_fd);
+			ft_putstr_fd(node->cmd_args[i], node->out_fd);
+			first = false;
 		}
-		ft_putstr_fd(node->cmd_args[i], node->out_fd);
-		if (node->cmd_args[i + 1] != NULL
-			&& ft_strlen(node->cmd_args[i + 1]) != 0)
-			ft_putstr_fd(" ", node->out_fd);
 		i += 1;
 	}
 	if (check_option(node->cmd_args[1]) != 1)

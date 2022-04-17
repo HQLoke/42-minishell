@@ -17,8 +17,9 @@ int	main(int argc, char **argv, char **envp)
 	char		*input;
 	t_list		*token_head;
 	t_cmd		*command_head;
-	bool		lexer_ok;
 
+	(void) argc;
+	(void) argv;
 	mini_init(&token_head, &command_head, envp);
 	ft_signal();
 	while (true)
@@ -27,8 +28,7 @@ int	main(int argc, char **argv, char **envp)
 		if (input == NULL)
 			sigquit_handler();
 		add_history(input);
-		lexer_ok = mini_lexer(input, &token_head);
-		if (lexer_ok == true)
+		if (mini_lexer(input, &token_head) == true)
 		{
 			mini_parser(token_head, &command_head);
 			mini_executor(command_head);

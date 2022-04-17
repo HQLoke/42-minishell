@@ -18,11 +18,8 @@ void	builtin_env(t_cmd *node)
 
 	if (ft_array_size(node->cmd_args) > 1)
 	{
-		g_environ->exit_status = 127;
 		ft_putstr_fd("env: no such file or directory\n", STDERR_FILENO);
-		if (node->cmd_num == -2)
-			return ;
-		exit (127);
+		return (return_or_exit(node, 127));
 	}
 	i = 0;
 	while (g_environ->env_var[i] != NULL)
@@ -31,7 +28,5 @@ void	builtin_env(t_cmd *node)
 		ft_putstr_fd("\n", node->out_fd);
 		i += 1;
 	}
-	if (node->cmd_num == -2)
-		return ;
-	exit (EXIT_SUCCESS);
+	return (return_or_exit(node, EXIT_SUCCESS));
 }

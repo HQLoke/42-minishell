@@ -6,7 +6,7 @@
 /*   By: hloke <hloke@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 10:29:49 by hloke             #+#    #+#             */
-/*   Updated: 2022/04/15 08:51:34 by hloke            ###   ########.fr       */
+/*   Updated: 2022/04/17 14:54:18 by hloke            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	single_dup2_close(t_cmd *node)
 	}
 }
 
-static void	child_dup2_close_continue(t_cmd *node, int fd[2], int last_fd)
+static void	child_dup2_close_continue(t_cmd *node, int last_fd)
 {
 	if (node->cmd_num > 0 || node->cmd_num == -1)
 	{
@@ -83,7 +83,7 @@ void	child_dup2_close(t_cmd *node, int fd[2], int last_fd)
 			ft_close(fd[0]);
 		}
 	}
-	child_dup2_close_continue(node, fd, last_fd);
+	child_dup2_close_continue(node, last_fd);
 }
 
 void	parent_close(int fd[2], int *last_fd, int cmd)

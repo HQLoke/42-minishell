@@ -60,6 +60,7 @@ void	builtin_exit(t_cmd *node);
 void	builtin_export(t_cmd *node);
 void	builtin_pwd(t_cmd *node);
 void	builtin_unset(t_cmd *node);
+void	return_or_exit(t_cmd *node, int exit_code);
 
 //* /srcs/env
 int		ft_delenv(char *env_key);

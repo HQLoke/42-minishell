@@ -6,7 +6,7 @@
 /*   By: hloke <hloke@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 11:28:15 by hloke             #+#    #+#             */
-/*   Updated: 2022/04/12 16:17:38 by hloke            ###   ########.fr       */
+/*   Updated: 2022/04/17 14:54:53 by hloke            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ void	make_cmd_list(t_list *token_head, t_cmd **command_head, int pipe_count)
 {
 	t_list	*token_tmp;
 	t_cmd	*cmd_tmp;
-	char	**tmp;
 
 	while (pipe_count-- > 0)
 		add_command(command_head);

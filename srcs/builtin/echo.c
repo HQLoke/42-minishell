@@ -52,7 +52,5 @@ void	builtin_echo(t_cmd *node)
 	}
 	if (check_option(node->cmd_args[1]) != 1)
 		ft_putstr_fd("\n", node->out_fd);
-	if (node->cmd_num == -2)
-		return ;
-	exit (EXIT_SUCCESS);
+	return (return_or_exit(node, EXIT_SUCCESS));
 }

@@ -39,11 +39,11 @@ static void	execute_multiple(t_cmd *command_head)
 	{
 		if (tmp->cmd_num >= 0)
 			ft_pipe(fd);
+		g_environ->exit_status = 0;
 		process = ft_fork();
 		if (process == 0)
 		{
 			child_dup2_close(tmp, fd, last_fd);
-			g_environ->exit_status = 0;
 			if (builtin_exec(tmp) == 0)
 				ft_execve(tmp->cmd_args);
 		}

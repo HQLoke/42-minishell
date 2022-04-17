@@ -1,8 +1,7 @@
 NAME = minishell
 
 CC        	  = gcc
-CFLAGS    	  = -g3 -fsanitize=address
-#-Wall -Wextra -Werror
+CFLAGS    	  = -Wall -Wextra -Werror -g3 -fsanitize=address
 RM            = rm -f
 
 INC 	      = -Iinclude -Ilibft $(CPPFLAGS)
@@ -21,7 +20,7 @@ PARSER_DIR      = srcs/parser/
 SIGNAL_DIR		= srcs/signal/
 STANDARD_DIR  	= srcs/standard/
 UTILS_DIR     	= srcs/utils/
-SRCS = $(addprefix $(BUILTIN_DIR), cd.c echo.c env.c exit.c export.c pwd.c unset.c)  				\
+SRCS = $(addprefix $(BUILTIN_DIR), builtin_utils.c cd.c echo.c env.c exit.c export.c pwd.c unset.c) \
 	   $(addprefix $(ENV_DIR), ft_delenv.c ft_getenv.c ft_putenv.c) 								\
 	   $(addprefix $(EXECUTOR_DIR), builtin_exec.c dup2_close.c mini_executor.c 		    		\
 	   								redirect_input.c redirect_output.c wait_exit_status.c)			\

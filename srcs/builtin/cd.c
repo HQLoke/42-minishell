@@ -40,6 +40,7 @@ void	builtin_cd(t_cmd *node)
 	oldpwd = getcwd(NULL, 0);
 	if (chdir(node->cmd_args[1]) == -1)
 	{
+		free (oldpwd);
 		ft_putstr_fd("bash: cd: ", STDERR_FILENO);
 		ft_putstr_fd(node->cmd_args[1], STDERR_FILENO);
 		ft_putstr_fd(" No such file or directory\n", STDERR_FILENO);

@@ -62,3 +62,16 @@ Follow this process flow: lexer > parser > executor
    everything.
 5: DRY principle: Before coding, identify if there are similarities between the
    problems and try to extract that portion out as a function.
+
+17 April 2022: 9:30pm to 12:52am 
+1st evaluation session by Wee Hean
+1: Github collaboration (using fork, fetch, raise issues)
+2: Signal control+/ doesn't do nothing (probably due to me removing two lines)
+3: equal sign crash in export
+4: unset doesn't remove env var
+5: after unsetting PATH, execve will crash coz no NULL check
+6: execve increment wrong place
+7: cat heredoc in multiple processes
+8: history file survives the minishell exit
+9: ft_putendl_fd instead of ft_putstr newline everytime
+10: ft_strcmp instead of ft_strncmp, remove the n

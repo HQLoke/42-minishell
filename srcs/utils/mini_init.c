@@ -6,7 +6,7 @@
 /*   By: hloke <hloke@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 14:06:07 by hloke             #+#    #+#             */
-/*   Updated: 2022/04/17 15:12:03 by hloke            ###   ########.fr       */
+/*   Updated: 2022/04/18 23:18:56 by hloke            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,5 @@ void	mini_init(t_list **token_head, t_cmd **command_head, char **envp)
 	g_environ = ft_calloc(1, sizeof(t_environ));
 	g_environ->num_var = ft_array_size(envp);
 	g_environ->env_var = ft_array_dup(envp, g_environ->num_var);
+	history_init();
 }

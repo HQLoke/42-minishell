@@ -30,6 +30,7 @@
 # include <term.h>
 # include <unistd.h>
 # include "ansi_color_codes.h"
+# include "get_next_line.h"
 # include "libft.h"
 
 struct s_environ	*g_environ;
@@ -76,6 +77,10 @@ int		redirect_input(t_list *redirect);
 int		redirect_output(t_list *redirect);
 void	single_dup2_close(t_cmd *node);
 void	wait_exit_status(void);
+
+//* /srcs/history
+void	history_append(char *input);
+void	history_init(void);
 
 //* /srcs/lexer
 void	assign_token(t_list **token_head);

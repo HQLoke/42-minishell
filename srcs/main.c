@@ -27,7 +27,7 @@ int	main(int argc, char **argv, char **envp)
 		input = readline("мιηιѕнєℓℓ>> ");
 		if (input == NULL)
 			sigquit_handler();
-		add_history(input);
+		history_append(input);
 		if (mini_lexer(input, &token_head) == true)
 		{
 			mini_parser(token_head, &command_head);

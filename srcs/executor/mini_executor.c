@@ -47,6 +47,7 @@ static void	execute_multiple(t_cmd *command_head)
 			if (builtin_exec(tmp) == 0)
 				ft_execve(tmp->cmd_args);
 		}
+		wait_exit_status();
 		parent_close(fd, &last_fd, tmp->cmd_num);
 		tmp = tmp->next;
 	}
@@ -66,4 +67,5 @@ void	mini_executor(t_cmd *command_head)
 	else
 		execute_multiple(command_head);
 	wait_exit_status();
+	unlink("./srcs/executor/.heredoc_tmp");
 }

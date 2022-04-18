@@ -97,7 +97,6 @@ void	ft_signal(void);
 void	sigquit_handler(void);
 
 //* /srcs/standard
-void	ft_access(const char *filename, int mode);
 void	ft_close(int fd);
 void	ft_dup2(int oldfd, int newfd);
 void	ft_execve(char **cmd_args);

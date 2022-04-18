@@ -6,7 +6,7 @@
 /*   By: hloke <hloke@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 14:48:09 by hloke             #+#    #+#             */
-/*   Updated: 2022/04/14 10:41:19 by hloke            ###   ########.fr       */
+/*   Updated: 2022/04/18 08:40:54 by hloke            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	equal_index(char *env_var)
 	int	index;
 
 	index = 0;
-	while (env_var[index] != '=' && env_var[index] != '\0')
+	while (env_var[index] != '\0' && env_var[index] != '=')
 		index += 1;
 	return (index);
 }
@@ -36,7 +36,7 @@ int	ft_putenv(char *env_var)
 	char	**tmp;
 
 	i = 0;
-	index = equal_index(env_var) + 1;
+	index = equal_index(env_var);
 	while (g_environ->env_var[i])
 	{
 		if (ft_strncmp(g_environ->env_var[i], env_var, index) == 0)

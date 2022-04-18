@@ -31,27 +31,30 @@ static int	check_var_syntax(char *str)
 	return (1);
 }
 
-static void	print_export(void)
+static void	print_export(t_cmd *node)
 {
-	int		i;
 	int		equal;
 	char	*tmp1;
-	char	*tmp2;
+	char	**g_tmp;
 
-	i = 0;
-	while (g_environ->env_var[i])
+	g_tmp = g_environ->env_var;
+	while (*g_tmp)
 	{
 		equal = 0;
-		while (g_environ->env_var[i][equal] != '=')
+		while ((*g_tmp)[equal] != '\0' && (*g_tmp)[equal] != '=')
 			equal += 1;
-		tmp1 = ft_substr(g_environ->env_var[i], 0, equal);
-		tmp2 = ft_substr(g_environ->env_var[i], equal + 1,
-				ft_strlen(g_environ->env_var[i]) - equal - 1);
-		printf("declare -x ");
-		printf("%s=\"%s\"\n", tmp1, tmp2);
+		tmp1 = ft_substr((*g_tmp), 0, equal);
+		ft_putstr_fd("declare -x ", node->out_fd);
+		ft_putstr_fd(tmp1, node->out_fd);
+		if (ft_getenv(tmp1) != NULL)
+		{
+			ft_putstr_fd("=\"", node->out_fd);
+			ft_putstr_fd(ft_getenv(tmp1), node->out_fd);
+			ft_putstr_fd("\"", node->out_fd);
+		}
+		ft_putstr_fd("\n", node->out_fd);
 		free (tmp1);
-		free (tmp2);
-		i += 1;
+		g_tmp += 1;
 	}
 }
 
@@ -61,14 +64,13 @@ void	builtin_export(t_cmd *node)
 	bool	error;
 
 	if (ft_array_size(node->cmd_args) < 2)
-		print_export();
+		print_export(node);
 	i = 1;
 	error = false;
 	while (node->cmd_args[i] != NULL)
 	{
 		if (check_var_syntax(node->cmd_args[i]) != 1)
 		{
-			g_environ->exit_status = EXIT_FAILURE;
 			error = true;
 			ft_putstr_fd("bash: export '", STDERR_FILENO);
 			ft_putstr_fd(node->cmd_args[i], STDERR_FILENO);
@@ -78,7 +80,5 @@ void	builtin_export(t_cmd *node)
 			ft_putenv(node->cmd_args[i]);
 		i += 1;
 	}
-	if (node->cmd_num == -2)
-		return ;
-	exit (error);
+	return (return_or_exit(node, error));
 }

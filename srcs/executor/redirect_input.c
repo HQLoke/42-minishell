@@ -27,8 +27,7 @@ static int	input_heredoc(const char *limit)
 		line = readline("heredoc> ");
 		if (ft_strncmp(line, limit, ft_strlen(limit) + 1) == 0)
 			break ;
-		ft_putstr_fd(line, tmp_fd);
-		ft_putstr_fd("\n", tmp_fd);
+		ft_putendl_fd(line, tmp_fd);
 	}
 	free (line);
 	ft_close(tmp_fd);

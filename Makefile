@@ -28,8 +28,8 @@ SRCS = $(addprefix $(BUILTIN_DIR), builtin_utils.c cd.c echo.c env.c exit.c expo
 	   $(addprefix $(PARSER_DIR), cmd_list_utils.c expand_cmd.c expand_token.c get_expansion.c 		\
 	    						  mini_parser.c trim_token.c) 										\
 	   $(addprefix $(SIGNAL_DIR), signal.c)							  								\
-	   $(addprefix $(STANDARD_DIR), ft_access.c ft_close.c ft_dup2.c ft_execve.c ft_fork.c   		\
-	   								ft_free.c ft_open.c ft_pipe.c ft_unlink.c ft_waitpid.c) 		\
+	   $(addprefix $(STANDARD_DIR), ft_close.c ft_dup2.c ft_execve.c ft_fork.c ft_free.c ft_open.c  \
+	   								ft_pipe.c ft_unlink.c ft_waitpid.c) 							\
 	   $(addprefix $(UTILS_DIR), ft_array_add.c ft_array_dup.c ft_array_size.c ft_memdel.c 			\
 	   							 ft_split_custom.c mini_deinit.c mini_init.c)
 OBJS = $(SRCS:.c=.o)

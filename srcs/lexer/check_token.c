@@ -6,7 +6,7 @@
 /*   By: hloke <hloke@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 15:47:25 by hloke             #+#    #+#             */
-/*   Updated: 2022/04/17 20:04:56 by hloke            ###   ########.fr       */
+/*   Updated: 2022/04/18 11:25:51 by hloke            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	set_lexer_ok(char *error_msg, bool *lexer_ok)
 static int	check_quote(char *content, bool *lexer_ok)
 {
 	int		i;
-	
+
 	while (*content)
 	{
 		i = 1;

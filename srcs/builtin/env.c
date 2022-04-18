@@ -24,8 +24,7 @@ void	builtin_env(t_cmd *node)
 	i = 0;
 	while (g_environ->env_var[i] != NULL)
 	{
-		ft_putstr_fd(g_environ->env_var[i], node->out_fd);
-		ft_putstr_fd("\n", node->out_fd);
+		ft_putendl_fd(g_environ->env_var[i], node->out_fd);
 		i += 1;
 	}
 	return (return_or_exit(node, EXIT_SUCCESS));

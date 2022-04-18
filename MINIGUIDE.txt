@@ -75,3 +75,4 @@ Follow this process flow: lexer > parser > executor
 8: history file survives the minishell exit
 9: ft_putendl_fd instead of ft_putstr newline everytime
 10: ft_strcmp instead of ft_strncmp, remove the n
+11: if variable name is too long, create a temporary function to copy

@@ -33,8 +33,7 @@ void	builtin_pwd(t_cmd *node)
 	dir = ft_getcwd(NULL, 0);
 	if (dir == NULL)
 		return (return_or_exit(node, EXIT_FAILURE));
-	ft_putstr_fd(dir, node->out_fd);
-	ft_putstr_fd("\n", node->out_fd);
+	ft_putendl_fd(dir, node->out_fd);
 	free(dir);
 	return (return_or_exit(node, EXIT_SUCCESS));
 }

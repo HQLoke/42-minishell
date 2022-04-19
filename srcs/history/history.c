@@ -6,7 +6,7 @@
 /*   By: hloke <hloke@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 22:54:31 by hloke             #+#    #+#             */
-/*   Updated: 2022/04/18 23:20:13 by hloke            ###   ########.fr       */
+/*   Updated: 2022/04/19 08:22:03 by hloke            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	history_append(char *input)
 	if (ft_strlen(input) != 0)
 	{
 		fd = ft_open("./srcs/history/.all_history",
-			O_CREAT | O_WRONLY | O_APPEND, 0666);
+				O_CREAT | O_WRONLY | O_APPEND, 0666);
 		ft_putendl_fd(input, fd);
 		add_history(input);
 		ft_close (fd);

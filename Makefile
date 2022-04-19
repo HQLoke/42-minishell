@@ -8,6 +8,8 @@ INC_DIR = include
 SRC_DIR = srcs
 OBJ_DIR = obj
 
+GNL_DIR       = ./gnl
+LIBFT_DIR     = ./libft
 LIBFT = libft/libft.a
 GNL = gnl/libgnl.a
 LIB = -Lgnl -lgnl -Llibft -lft -lreadline $(LDFLAGS)
@@ -147,12 +149,14 @@ $(OBJ_DIR)/%.o : %.c $(LIBFT_FILE) | $(OBJ_DIR)
 
 clean :
 	@$(RM) $(OBJ_DIR)
-	@rm -f libft/libft.a
-	@rm -f gnl/libgnl.a
+	@make clean -C $(GNL_DIR) -s
+	@make clean -C $(LIBFT_DIR) -s
 	@printf "$(NEWLINE)$(PURPLE)Cleaning $(PINK_TEXT)$(NAME)'s Object files...\n"
 
 fclean : clean
 	@$(RM) $(NAME)
+	@make fclean -C $(GNL_DIR) -s
+	@make fclean -C $(LIBFT_DIR) -s
 	@printf "$(NEWLINE)$(PURPLE)Cleaning $(PINK_TEXT)$(NAME)\n"
 
 re : fclean all

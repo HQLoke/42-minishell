@@ -1,27 +1,27 @@
 NAME = minishell
 
-CC = gcc
-CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
-RM = rm -rf
+CC 			= gcc
+CFLAGS 		= -Wall -Wextra -Werror -g3 -fsanitize=address
+RM 			= rm -rf
 
-INC_DIR = include
-SRC_DIR = srcs
-OBJ_DIR = obj
+INC_DIR 	= include
+SRC_DIR 	= srcs
+OBJ_DIR     = obj
 
-GNL_DIR       = ./gnl
-LIBFT_DIR     = ./libft
-LIBFT = libft/libft.a
-GNL = gnl/libgnl.a
-LIB = -Lgnl -lgnl -Llibft -lft -lreadline $(LDFLAGS)
-CPPFLAGS      = -I/usr/local/opt/readline/include
-LDFLAGS       = -L/usr/local/opt/readline/lib
+GNL_DIR     = ./gnl
+LIBFT_DIR   = ./libft
+LIBFT 		= libft/libft.a
+GNL 		= gnl/libgnl.a
+LIB 	    = -Lgnl -lgnl -Llibft -lft -lreadline $(LDFLAGS)
+CPPFLAGS    = -I/usr/local/opt/readline/include
+LDFLAGS     = -L/usr/local/opt/readline/lib
 
-HEADERS = $(addprefix $(INC_DIR)/, \
+HEADERS 	= $(addprefix $(INC_DIR)/, \
 	ansi_color_codes.h  \
 	minishell.h \
 )
-UTIL_DIR = $(SRC_DIR)/utils
-UTIL_SRC = $(addprefix $(UTIL_DIR)/, \
+UTIL_DIR 	= $(SRC_DIR)/utils
+UTIL_SRC    = $(addprefix $(UTIL_DIR)/, \
 	ft_array_add.c \
 	ft_array_dup.c \
 	ft_array_size.c \
@@ -137,14 +137,14 @@ $(NAME) : $(LIBFT_FILE) $(HEADERS) $(OBJS)
 	@make -s -C ./gnl
 	@printf "$(NEWLINE)$(PURPLE)Successfully created $(PINK_TEXT)$@'s object files$(PURPLE)!"
 	@printf "\n$(PURPLE)Creating $(PINK_TEXT)$@$(PURPLE)!\n"
-	@$(CC) $(CFLAGS) -I $(INC_DIR) $(LIBFT_FLAGS) $(OBJS) $(LIB) $(LIBFT) $(GNL) $(CPPFLAGS) -o $@
+	@$(CC) $(CFLAGS) -I $(INC_DIR) $(CPPFLAGS) $(LIBFT_FLAGS) $(OBJS) $(LIB) $(LIBFT) $(GNL) -o $@
 	@printf "$(NEWLINE)$(GREEN)Successfully created $(GREEN)$@$(GREEN)!\n$(NO_COLOR)"
 
 $(OBJ_DIR) :
 	@mkdir $(OBJ_DIR)
 
 $(OBJ_DIR)/%.o : %.c $(LIBFT_FILE) | $(OBJ_DIR)
-	@$(CC) $(CFLAGS) -I $(INC_DIR) -c $< -o $@
+	@$(CC) $(CFLAGS) -I $(INC_DIR) $(CPPFLAGS) -c $< -o $@
 	@printf "$(NEWLINE)$(PURPLE)Create $(PINK_TEXT)$@ $(PURPLE)from $(PINK_TEXT)$<"
 
 clean :

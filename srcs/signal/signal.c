@@ -39,9 +39,7 @@ static void	signal_handler(int i)
 	{
 		if (pid == -1)
 		{
-			rl_on_new_line();
-			rl_redisplay();
-			printf("\b\b%c%c\n", 0x7f, 0x7f);
+			printf("\b\b  \n");
 			rl_on_new_line();
 			rl_redisplay();
 		}

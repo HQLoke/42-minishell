@@ -30,8 +30,8 @@
 # include <term.h>
 # include <unistd.h>
 # include "ansi_color_codes.h"
-# include "get_next_line.h"
-# include "libft.h"
+# include "../gnl/get_next_line.h"
+# include "../libft/libft.h"
 
 struct s_environ	*g_environ;
 enum e_token{heredoc = 1, input, append, trunc, piping, command, argument};

@@ -34,7 +34,17 @@
 # include "../libft/libft.h"
 
 struct s_environ	*g_environ;
-enum e_token{heredoc = 1, input, append, trunc, piping, command, argument};
+
+enum e_token
+{
+	heredoc = 1,
+	input,
+	append,
+	trunc,
+	piping,
+	command,
+	argument
+};
 
 typedef struct s_environ
 {
